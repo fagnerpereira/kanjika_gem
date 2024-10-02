@@ -1,6 +1,20 @@
-module Kajika
+require_relative "base"
+
+module Kanjika
   module Conjugator
     class Masu < Base
+      GODAN_ENDINGS = {
+        "う" => "い",  # e.g., 会う → 会います
+        "く" => "き",  # e.g., 書く → 書きます
+        "ぐ" => "ぎ",  # e.g., 泳ぐ → 泳ぎます
+        "す" => "し",  # e.g., 話す → 話します
+        "つ" => "ち",  # e.g., 持つ → 持ちます
+        "ぬ" => "に",  # e.g., 死ぬ → 死にます
+        "ぶ" => "び",  # e.g., 飛ぶ → 飛びます
+        "む" => "み",  # e.g., 読む → 読みます
+        "る" => "り"   # e.g., 切る → 切ります
+      }
+
       CONJUGATION_RULES = {
         ichidan: ->(stem) { stem + "ます" },
         godan: ->(stem, last_char) { stem + GODAN_ENDINGS[last_char] + "ます" },
