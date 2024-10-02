@@ -47,5 +47,11 @@ RSpec.describe Kanjika::Conjugator::Masu do
       # 勉強
       it { expect(described_class.conjugate("愛用")).to eq("愛用します") }
     end
+
+    context "invalid verbs" do
+      it do
+        expect(described_class.conjugate("わたし")).to eq("")
+      end
+    end
   end
 end
