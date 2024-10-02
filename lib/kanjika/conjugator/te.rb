@@ -1,29 +1,29 @@
+require "pry"
 module Kanjika
   module Conjugator
-    class Masu < Base
+    class Te < Base
       GODAN_ENDINGS = {
-        "う" => "い",
-        "く" => "き",
-        "ぐ" => "ぎ",
-        "す" => "し",
-        "つ" => "ち",
-        "ぬ" => "に",
-        "ぶ" => "び",
-        "む" => "み",
-        "る" => "り"
+        "う" => "って",
+        "く" => "いて",
+        "ぐ" => "いで",
+        "す" => "して",
+        "つ" => "って",
+        "ぬ" => "んで",
+        "ぶ" => "んで",
+        "む" => "んで",
+        "る" => "って"
       }
-      ICHIDAN_MASU_FORMS = {
-        "る" => "ます"
+      ICHIDAN_ENDINGS = {
+        "る" => "て"
       }
       IRREGULARS = {
-        "来る" => "来ます",
-        "くる" => "きます",
-        "する" => "します"
+        "来る" => "来て",
+        "くる" => "きて",
+        "する" => "して"
       }
-
       CONJUGATION_RULES = {
-        ichidan: ->(stem) { stem + "ます" },
-        godan: ->(stem, last_char) { stem + GODAN_ENDINGS[last_char] + "ます" },
+        ichidan: ->(stem, last_char) { stem + ICHIDAN_ENDINGS[last_char] },
+        godan: ->(stem, last_char) { stem + GODAN_ENDINGS[last_char] },
         irregular: ->(verb) { IRREGULARS[verb] }
       }
 
@@ -58,7 +58,7 @@ module Kanjika
         rule = CONJUGATION_RULES[verb_type]
         case verb_type
         when :ichidan
-          rule.call(stem)
+          rule.call(stem, verb[-1])
         when :godan
           rule.call(stem, verb[-1])
         when :irregular
@@ -67,12 +67,10 @@ module Kanjika
       end
 
       def conjugate_others(token)
-        return verb + "します" if verb.kanji?
-
-        if ending_in_e_or_i?
-          CONJUGATION_RULES[:ichidan].call(stem)
-        elsif godan_ending?
-          CONJUGATION_RULES[:godan].call(stem, verb[-1])
+        if token[:raw].include?(NOUN_VERB)
+          verb + IRREGULARS["する"]
+        else
+          "invalid verb"
         end
       end
 
