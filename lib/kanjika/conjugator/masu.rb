@@ -1,3 +1,5 @@
+require "debug"
+
 module Kanjika
   module Conjugator
     class Masu < Base
@@ -36,16 +38,26 @@ module Kanjika
       private
 
       def conjugate_token(word, token)
-        if word.part_of_speech.name == "verb"
+        if ["adverb"].include?(word.part_of_speech.name)
+          return token[:lemma]
+        end
+
+        conjugated = if word.part_of_speech.name == "verb"
           conjugate_verb(token)
         else
           conjugate_others(token)
         end
+
+        return token[:lemma] if conjugated.nil?
+
+        conjugated
       end
 
       def conjugate_verb(token)
         verb_type = determine_verb_type(token)
-        apply_conjugation_rule(verb_type)
+        return token[:lemma] if verb_type.nil?
+
+        apply_conjugation_rule(verb_type, token[:lemma])
       end
 
       def determine_verb_type(token)
@@ -54,7 +66,7 @@ module Kanjika
         :irregular if irregular?(token)
       end
 
-      def apply_conjugation_rule(verb_type)
+      def apply_conjugation_rule(verb_type, lemma)
         rule = CONJUGATION_RULES[verb_type]
         case verb_type
         when :ichidan
@@ -62,7 +74,7 @@ module Kanjika
         when :godan
           rule.call(stem, verb[-1])
         when :irregular
-          rule.call(verb)
+          rule.call(lemma)
         end
       end
 
