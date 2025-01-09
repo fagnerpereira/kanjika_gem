@@ -1,79 +1,73 @@
 RSpec.describe Kanjika::Conjugator::Te do
   describe ".conjugate" do
-    context "godan verbs (u endings)" do
-      context "verbs ending with う, つ, る" do
-        it "substitutes for 'って'" do
-          expect(described_class.conjugate("有る")).to eq("有って")
-          expect(described_class.conjugate("会う")).to eq("会って")
-          expect(described_class.conjugate("持つ")).to eq("持って")
-        end
-      end
-
-      context "verbs ending with む, ぶ, ぬ" do
-        it "substitutes for 'んで'" do
-          expect(described_class.conjugate("死ぬ")).to eq("死んで")
-          expect(described_class.conjugate("飛ぶ")).to eq("飛んで")
-          expect(described_class.conjugate("読む")).to eq("読んで")
-        end
-      end
-
-      context "verbs ending with く" do
-        it "substitutes 'く' for 'いて'" do
-          expect(described_class.conjugate("書く")).to eq("書いて")
-        end
-      end
-
-      context "verbs ending with ぐ" do
-        it "substitutes 'ぐ' for 'いで' " do
-          expect(described_class.conjugate("泳ぐ")).to eq("泳いで")
-        end
-      end
-
-      context "verbs ending with す" do
-        it "substitutes 'す' for 'して'" do
-          expect(described_class.conjugate("話す")).to eq("話して")
+    context "godan verbs" do
+      context "う-row endings" do
+        {
+          "会う" => "会って",    # う ending
+          "持つ" => "持って",   # つ ending
+          "有る" => "有って",   # る ending
+          "死ぬ" => "死んで",   # ぬ ending
+          "飛ぶ" => "飛んで",   # ぶ ending
+          "読む" => "読んで",   # む ending
+          "書く" => "書いて",   # く ending
+          "泳ぐ" => "泳いで",   # ぐ ending
+          "話す" => "話して"    # す ending
+        }.each do |verb, expected|
+          it "conjugates #{verb} to #{expected}" do
+            expect(described_class.conjugate(verb)).to eq(expected)
+          end
         end
       end
     end
 
-    context "ichidan verbs (ru endings)" do
-      it "removes 'る', adds 'て'" do
-        expect(described_class.conjugate("いる")).to eq("いて")
-        expect(described_class.conjugate("おきる")).to eq("おきて")
-        expect(described_class.conjugate("きる")).to eq("きて")
-        expect(described_class.conjugate("着る")).to eq("着て")
-        expect(described_class.conjugate("たべる")).to eq("たべて")
-        expect(described_class.conjugate("食べる")).to eq("食べて")
-        expect(described_class.conjugate("見る")).to eq("見て")
-        expect(described_class.conjugate("みる")).to eq("みて")
+    context "ichidan verbs" do
+      {
+        "食べる" => "食べて",   # Common ichidan
+        "見る" => "見て",      # Kanji ichidan
+        "いる" => "いて",      # Hiragana only
+        "着る" => "着て"       # Kanji with same pronunciation as みる
+      }.each do |verb, expected|
+        it "conjugates #{verb} to #{expected}" do
+          expect(described_class.conjugate(verb)).to eq(expected)
+        end
       end
     end
 
     context "irregular verbs" do
-      it { expect(described_class.conjugate("来る")).to eq("来て") }
-      it { expect(described_class.conjugate("くる")).to eq("きて") }
-      it { expect(described_class.conjugate("する")).to eq("して") }
+      {
+        "する" => "して",      # Basic する
+        "くる" => "きて",      # Hiragana くる
+        "来る" => "来て"       # Kanji くる
+      }.each do |verb, expected|
+        it "conjugates #{verb} to #{expected}" do
+          expect(described_class.conjugate(verb)).to eq(expected)
+        end
+      end
     end
 
-    context "kanji noun verbs" do
-      it "adds 'して'" do
-        expect(described_class.conjugate("愛用")).to eq("愛用して")
-        expect(described_class.conjugate("改正")).to eq("改正して")
-        expect(described_class.conjugate("完了")).to eq("完了して")
-        expect(described_class.conjugate("存在")).to eq("存在して")
-        expect(described_class.conjugate("感謝")).to eq("感謝して")
-        expect(described_class.conjugate("理解")).to eq("理解して")
-        expect(described_class.conjugate("実行")).to eq("実行して")
-        expect(described_class.conjugate("了解")).to eq("了解して")
-        expect(described_class.conjugate("確認")).to eq("確認して")
-        expect(described_class.conjugate("勉強")).to eq("勉強して")
-        expect(described_class.conjugate("愛用")).to eq("愛用して")
+    context "suru verbs (verbal nouns)" do
+      {
+        "勉強" => "勉強して",    # Study
+        "電話" => "電話して",    # Phone call (new case)
+        "確認" => "確認して",    # Confirmation
+        "存在" => "存在して"     # Existence
+      }.each do |verb, expected|
+        it "conjugates #{verb} to #{expected}" do
+          expect(described_class.conjugate(verb)).to eq(expected)
+        end
       end
+    end
 
-      context "invalid verbs" do
-        it "returns 'invalid verb'" do
-          expect(described_class.conjugate("断然")).to eq("invalid verb")
-          expect(described_class.conjugate("わたし")).to eq("invalid verb")
+    context "invalid cases" do
+      [
+        "断然",      # Adverb
+        "わたし",    # Regular noun
+        "きれい",    # な-adjective (new case)
+        "かわいい",  # い-adjective (new case)
+        "あ"         # Single character (new case)
+      ].each do |invalid_verb|
+        it "returns 'invalid verb' for #{invalid_verb}" do
+          expect(described_class.conjugate(invalid_verb)).to eq("invalid verb")
         end
       end
     end

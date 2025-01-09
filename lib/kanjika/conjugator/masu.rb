@@ -1,5 +1,3 @@
-require "debug"
-
 module Kanjika
   module Conjugator
     class Masu < Base
@@ -14,6 +12,7 @@ module Kanjika
         "む" => "み",
         "る" => "り"
       }
+
       ICHIDAN_MASU_FORMS = {
         "る" => "ます"
       }
@@ -23,13 +22,9 @@ module Kanjika
         "する" => "します"
       }
 
-      CONJUGATION_RULES = {
-        ichidan: ->(stem) { stem + "ます" },
-        godan: ->(stem, last_char) { stem + GODAN_ENDINGS[last_char] + "ます" },
-        irregular: ->(verb) { IRREGULARS[verb] }
-      }
+      def conjugate(negative: false)
+        @negative = negative
 
-      def conjugate
         Ve.in(:ja).words(verb).flat_map do |word|
           word.tokens.map { |token| conjugate_token(word, token) }.join
         end.join
@@ -47,7 +42,6 @@ module Kanjika
         else
           conjugate_others(token)
         end
-
         return token[:lemma] if conjugated.nil?
 
         conjugated
@@ -61,55 +55,36 @@ module Kanjika
       end
 
       def determine_verb_type(token)
-        return :ichidan if ichidan?(token)
-        return :godan if godan?(token)
-        :irregular if irregular?(token)
+        return ICHIDAN_TYPE if ichidan?(token)
+        return GODAN_TYPE if godan?(token)
+        IRREGULAR_TYPE if irregular?(token)
       end
 
       def apply_conjugation_rule(verb_type, lemma)
-        rule = CONJUGATION_RULES[verb_type]
         case verb_type
-        when :ichidan
-          rule.call(stem)
-        when :godan
-          rule.call(stem, verb[-1])
-        when :irregular
-          rule.call(lemma)
+        when ICHIDAN_TYPE
+          stem + suffix
+        when GODAN_TYPE
+          stem + GODAN_ENDINGS[verb[-1]] + suffix
+        when IRREGULAR_TYPE
+          IRREGULARS[lemma]
         end
       end
 
       def conjugate_others(token)
-        return verb + "します" if verb.kanji?
+        return verb + "し#{suffix}" if verb.kanji?
 
         if ending_in_e_or_i?
-          CONJUGATION_RULES[:ichidan].call(stem)
+          stem + suffix
         elsif godan_ending?
-          CONJUGATION_RULES[:godan].call(stem, verb[-1])
+          stem + GODAN_ENDINGS[verb[-1]] + suffix
         end
       end
 
-      def ichidan?(token)
-        token[:inflection_type].match?(ICHIDAN)
-      end
+      def suffix
+        return "ません" if @negative
 
-      def godan?(token)
-        token[:inflection_type].match?(GODAN)
-      end
-
-      def irregular?(token)
-        token[:inflection_type].match?(SURU) || token[:inflection_type].match?(KURU)
-      end
-
-      def ending_in_e_or_i?
-        E_ENDINGS.include?(verb[-2]) || I_ENDINGS.include?(verb[-2])
-      end
-
-      def godan_ending?
-        GODAN_ENDINGS.key?(verb[-1])
-      end
-
-      def stem
-        verb.chop
+        "ます"
       end
     end
   end

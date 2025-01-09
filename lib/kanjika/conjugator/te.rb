@@ -1,4 +1,3 @@
-require "pry"
 module Kanjika
   module Conjugator
     class Te < Base
@@ -72,30 +71,6 @@ module Kanjika
         else
           "invalid verb"
         end
-      end
-
-      def ichidan?(token)
-        token[:inflection_type].match?(ICHIDAN)
-      end
-
-      def godan?(token)
-        token[:inflection_type].match?(GODAN)
-      end
-
-      def irregular?(token)
-        token[:inflection_type].match?(SURU) || token[:inflection_type].match?(KURU)
-      end
-
-      def ending_in_e_or_i?
-        E_ENDINGS.include?(verb[-2]) || I_ENDINGS.include?(verb[-2])
-      end
-
-      def godan_ending?
-        GODAN_ENDINGS.key?(verb[-1])
-      end
-
-      def stem
-        verb.chop
       end
     end
   end
