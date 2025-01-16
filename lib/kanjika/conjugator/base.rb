@@ -30,7 +30,8 @@ module Kanjika
       end
 
       def godan?(token)
-        token[:inflection_type].match?(GODAN)
+        token[:inflection_type].match?(GODAN) ||
+          ["ある"].include?(token[:lemma])
       end
 
       def irregular?(token)
@@ -39,10 +40,6 @@ module Kanjika
 
       def ending_in_e_or_i?
         E_ENDINGS.include?(verb[-2]) || I_ENDINGS.include?(verb[-2])
-      end
-
-      def godan_ending?
-        GODAN_ENDINGS.key?(verb[-1])
       end
 
       def stem

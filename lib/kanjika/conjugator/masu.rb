@@ -12,19 +12,19 @@ module Kanjika
         "む" => "み",
         "る" => "り"
       }
-
       ICHIDAN_MASU_FORMS = {
         "る" => "ます"
       }
       IRREGULARS = {
-        "来る" => "来ます",
-        "くる" => "きます",
-        "する" => "します"
+        "来る" => "来",
+        "くる" => "き",
+        "する" => "し"
       }
 
       def conjugate(negative: false)
         @negative = negative
 
+        # debugger
         Ve.in(:ja).words(verb).flat_map do |word|
           word.tokens.map { |token| conjugate_token(word, token) }.join
         end.join
@@ -63,12 +63,20 @@ module Kanjika
       def apply_conjugation_rule(verb_type, lemma)
         case verb_type
         when ICHIDAN_TYPE
-          stem + suffix
+          conjugate_ichidan
         when GODAN_TYPE
-          stem + GODAN_ENDINGS[verb[-1]] + suffix
+          conjugate_godan
         when IRREGULAR_TYPE
-          IRREGULARS[lemma]
+          IRREGULARS[lemma] + suffix
         end
+      end
+
+      def conjugate_godan
+        stem + GODAN_ENDINGS[verb[-1]] + suffix
+      end
+
+      def conjugate_ichidan
+        stem + suffix
       end
 
       def conjugate_others(token)
@@ -77,8 +85,12 @@ module Kanjika
         if ending_in_e_or_i?
           stem + suffix
         elsif godan_ending?
-          stem + GODAN_ENDINGS[verb[-1]] + suffix
+          conjugate_godan
         end
+      end
+
+      def godan_ending?
+        GODAN_ENDINGS.key?(verb[-1])
       end
 
       def suffix

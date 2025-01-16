@@ -26,11 +26,20 @@ module Kanjika
         irregular: ->(verb) { IRREGULARS[verb] }
       }
 
-      def conjugate
+      def conjugate(negative: false)
+        @negative = negative
+
+        # debugger
         Ve.in(:ja).words(verb).flat_map do |word|
           word.tokens.map { |token| conjugate_token(word, token) }.join
         end.join
       end
+
+      # def conjugate
+      #   Ve.in(:ja).words(verb).flat_map do |word|
+      #     word.tokens.map { |token| conjugate_token(word, token) }.join
+      #   end.join
+      # end
 
       private
 
