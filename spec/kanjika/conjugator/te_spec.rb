@@ -1,9 +1,61 @@
 RSpec.describe Kanjika::Conjugator::Te do
+  describe "#conjugate" do
+    context "godan verbs" do
+      context "う ending verbs" do
+        it "conjugates 会う - あう (to meet)" do
+          conjugator = described_class.new("会う")
+          expect(conjugator.conjugate).to eq("会って")
+          expect(conjugator.conjugate(negative: true)).to eq("会わなくて")
+        end
+
+        it "conjugates 使う - つかう (to use)" do
+          conjugator = described_class.new("使う")
+          expect(conjugator.conjugate).to eq("使って")
+          expect(conjugator.conjugate(negative: true)).to eq("使わなくて")
+        end
+
+        it "conjugates 買う - かう (to buy)" do
+          conjugator = described_class.new("買う")
+          expect(conjugator.conjugate).to eq("買って")
+          expect(conjugator.conjugate(negative: true)).to eq("買わなくて")
+        end
+      end
+
+      context "く ending verbs" do
+        it "conjugates 書く - かく (to write)" do
+          conjugator = described_class.new("書く")
+          expect(conjugator.conjugate).to eq("書いて")
+          expect(conjugator.conjugate(negative: true)).to eq("書かなくて")
+        end
+
+        it "conjugates 歩く - あるく (to walk)" do
+          conjugator = described_class.new("歩く")
+          expect(conjugator.conjugate).to eq("歩いて")
+          expect(conjugator.conjugate(negative: true)).to eq("歩かなくて")
+        end
+      end
+
+      context "ぐ ending verbs" do
+        it "conjugates 泳ぐ - およぐ (to swim)" do
+          conjugator = described_class.new("泳ぐ")
+          expect(conjugator.conjugate).to eq("泳いで")
+          expect(conjugator.conjugate(negative: true)).to eq("泳がなくて")
+        end
+
+        it "conjugates 急ぐ - いそぐ (to hurry, to rush)" do
+          conjugator = described_class.new("急ぐ")
+          expect(conjugator.conjugate).to eq("急いで")
+          expect(conjugator.conjugate(negative: true)).to eq("急がなくて")
+        end
+      end
+    end
+  end
+
   describe ".conjugate" do
     context "godan verbs" do
       context "う-row endings" do
         {
-          "会う" => "会って",    # う ending
+          "会う" => "会って",   # う ending
           "持つ" => "持って",   # つ ending
           "有る" => "有って",   # る ending
           "死ぬ" => "死んで",   # ぬ ending

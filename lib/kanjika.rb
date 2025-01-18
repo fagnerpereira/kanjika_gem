@@ -4,7 +4,6 @@ require_relative "kanjika/conjugator/masu"
 require_relative "kanjika/conjugator/te"
 require "ve"
 require "mojinizer"
-require "debug"
 
 module Kanjika
   class Error < StandardError; end

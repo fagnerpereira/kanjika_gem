@@ -2,44 +2,46 @@ module Kanjika
   module Conjugator
     class Te < Base
       GODAN_ENDINGS = {
-        "う" => "って",
-        "く" => "いて",
-        "ぐ" => "いで",
-        "す" => "して",
-        "つ" => "って",
-        "ぬ" => "んで",
-        "ぶ" => "んで",
-        "む" => "んで",
-        "る" => "って"
+        :う => {
+          positive: "って",
+          negative: "わなくて"
+        },
+        :く => {
+          positive: "いて",
+          negative: "かなくて"
+        },
+        :ぐ => {
+          positive: "いで",
+          negative: "がなくて"
+        }
       }
-      ICHIDAN_ENDINGS = {
-        "る" => "て"
-      }
-      IRREGULARS = {
-        "来る" => "来て",
-        "くる" => "きて",
-        "する" => "して"
-      }
-      CONJUGATION_RULES = {
-        ichidan: ->(stem, last_char) { stem + ICHIDAN_ENDINGS[last_char] },
-        godan: ->(stem, last_char) { stem + GODAN_ENDINGS[last_char] },
-        irregular: ->(verb) { IRREGULARS[verb] }
-      }
+      # GODAN_ENDINGS = {
+      #   "う" => "って",
+      #   "く" => "いて",
+      #   "ぐ" => "いで",
+      #   "す" => "して",
+      #   "つ" => "って",
+      #   "ぬ" => "んで",
+      #   "ぶ" => "んで",
+      #   "む" => "んで",
+      #   "る" => "って"
+      # }
+      # ICHIDAN_ENDINGS = {
+      #   "る" => "て"
+      # }
+      # IRREGULARS = {
+      #   "来る" => "来て",
+      #   "くる" => "きて",
+      #   "する" => "して"
+      # }
 
       def conjugate(negative: false)
         @negative = negative
 
-        # debugger
         Ve.in(:ja).words(verb).flat_map do |word|
           word.tokens.map { |token| conjugate_token(word, token) }.join
         end.join
       end
-
-      # def conjugate
-      #   Ve.in(:ja).words(verb).flat_map do |word|
-      #     word.tokens.map { |token| conjugate_token(word, token) }.join
-      #   end.join
-      # end
 
       private
 
@@ -62,16 +64,46 @@ module Kanjika
         :irregular if irregular?(token)
       end
 
+      CONJUGATION_RULES = {
+        ichidan: ->(stem, last_char) { stem + ICHIDAN_ENDINGS[last_char] },
+        godan: ->(stem, last_char) { stem + GODAN_ENDINGS[last_char] },
+        irregular: ->(verb) { IRREGULARS[verb] }
+      }
+
       def apply_conjugation_rule(verb_type)
-        rule = CONJUGATION_RULES[verb_type]
         case verb_type
-        when :ichidan
-          rule.call(stem, verb[-1])
-        when :godan
-          rule.call(stem, verb[-1])
-        when :irregular
-          rule.call(verb)
+        when ICHIDAN_TYPE
+          conjugate_ichidan
+        when GODAN_TYPE
+          conjugate_godan
+        when IRREGULAR_TYPE
+          # IRREGULARS[lemma] + suffix
         end
+        # rule = CONJUGATION_RULES[verb_type]
+        # case verb_type
+        # when :ichidan
+        #   rule.call(stem, verb[-1])
+        # when :godan
+        #   rule.call(stem, verb[-1])
+        # when :irregular
+        #   rule.call(verb)
+        # end
+      end
+
+      def conjugate_godan
+        stem + suffix
+      end
+
+      def suffix
+        if @negative
+          GODAN_ENDINGS.dig(verb[-1].to_sym, :negative)
+        else
+          GODAN_ENDINGS.dig(verb[-1].to_sym, :positive)
+        end
+      end
+
+      def conjugate_ichidan
+        stem + suffix
       end
 
       def conjugate_others(token)
