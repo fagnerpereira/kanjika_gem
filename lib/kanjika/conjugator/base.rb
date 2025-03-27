@@ -12,8 +12,8 @@ module Kanjika
 
       GODAN = "五段"
       ICHIDAN = "一段"
-      SURU = "カ変"
-      KURU = "サ変"
+      SURU = "サ変"
+      KURU = "カ変"
       NOUN_VERB = "サ変接続"
 
       attr_reader :verb
@@ -23,28 +23,40 @@ module Kanjika
       end
 
       def group
-        binding.irb
+        return :ichidan if ichidan?
+        return :godan if godan?
+        return :suru if suru?
+        :irregular
       end
 
       def conjugate
         raise NotImplementedError
       end
 
-      def ichidan?(token)
-        token[:inflection_type].match?(ICHIDAN)
+      def ichidan?
+        inflection_types.include?(ICHIDAN)
       end
 
-      def godan?(token)
-        token[:inflection_type].match?(GODAN) ||
-          ["ある"].include?(token[:lemma])
+      def godan?
+        inflection_types.include?(GODAN)
       end
 
-      def irregular?(token)
-        token[:inflection_type].match?(SURU) || token[:inflection_type].match?(KURU)
+      def suru?
+        inflection_types.include?(SURU)
+      end
+
+      def irregular?
+        inflection_types.include?(KURU)
       end
 
       def ending_in_e_or_i?
         E_ENDINGS.include?(verb[-2]) || I_ENDINGS.include?(verb[-2])
+      end
+
+      def inflection_types
+        Ve.in(:ja).words(verb).first.tokens.map do |tokens|
+          tokens[:inflection_type].split("・")
+        end.flatten
       end
 
       def stem
