@@ -48,6 +48,72 @@ RSpec.describe Kanjika::Conjugator::Te do
           expect(conjugator.conjugate(negative: true)).to eq("急がなくて")
         end
       end
+
+      context "す ending verbs" do
+        it "conjugates 話す - はなす (to speak)" do
+          conjugator = described_class.new("話す")
+          expect(conjugator.conjugate).to eq("話して")
+          expect(conjugator.conjugate(negative: true)).to eq("話さなくて")
+        end
+      end
+
+      context "つ ending verbs" do
+        it "conjugates 持つ - もつ (to hold)" do
+          conjugator = described_class.new("持つ") # motsu
+          expect(conjugator.conjugate).to eq("持って") # motte
+          expect(conjugator.conjugate(negative: true)).to eq("持たなくて") # motanakute
+        end
+      end
+
+      context "ぬ ending verbs" do
+        it "conjugates 死ぬ - しぬ (to die)" do
+          conjugator = described_class.new("死ぬ")
+          expect(conjugator.conjugate).to eq("死んで")
+          expect(conjugator.conjugate(negative: true)).to eq("死ななくて")
+        end
+      end
+
+      context "ぶ ending verbs" do
+        it "conjugates 遊ぶ - あそぶ (to play)" do
+          conjugator = described_class.new("遊ぶ")
+          expect(conjugator.conjugate).to eq("遊んで")
+          expect(conjugator.conjugate(negative: true)).to eq("遊ばなくて")
+        end
+
+        it "conjugates 呼ぶ - よぶ (to call)" do
+          conjugator = described_class.new("呼ぶ")
+          expect(conjugator.conjugate).to eq("呼んで")
+          expect(conjugator.conjugate(negative: true)).to eq("呼ばなくて")
+        end
+
+        it "conjugates 飛ぶ - とぶ (to fly)" do # 飛ぶ
+          conjugator = described_class.new("飛ぶ")
+          expect(conjugator.conjugate).to eq("飛んで")
+          expect(conjugator.conjugate(negative: true)).to eq("飛ばなくて")
+        end
+      end
+
+      context "む ending verbs" do
+        it "conjugates 読む - よむ (to read)" do
+          conjugator = described_class.new("読む")
+          expect(conjugator.conjugate).to eq("読んで")
+          expect(conjugator.conjugate(negative: true)).to eq("読まなくて")
+        end
+      end
+
+      context "る ending verbs" do
+        it "conjugates 帰る - かえる (to return)" do
+          conjugator = described_class.new("帰る")
+          expect(conjugator.conjugate).to eq("帰って")
+          expect(conjugator.conjugate(negative: true)).to eq("帰らなくて")
+        end
+
+        it "conjugates 走る - はしる (to run)" do
+          conjugator = described_class.new("走る")
+          expect(conjugator.conjugate).to eq("走って")
+          expect(conjugator.conjugate(negative: true)).to eq("走らなくて")
+        end
+      end
     end
   end
 
@@ -55,15 +121,8 @@ RSpec.describe Kanjika::Conjugator::Te do
     context "godan verbs" do
       context "う-row endings" do
         {
-          "会う" => "会って",   # う ending
-          "持つ" => "持って",   # つ ending
           "有る" => "有って",   # る ending
-          "死ぬ" => "死んで",   # ぬ ending
-          "飛ぶ" => "飛んで",   # ぶ ending
-          "読む" => "読んで",   # む ending
-          "書く" => "書いて",   # く ending
-          "泳ぐ" => "泳いで",   # ぐ ending
-          "話す" => "話して"    # す ending
+          "読む" => "読んで"   # む ending
         }.each do |verb, expected|
           it "conjugates #{verb} to #{expected}" do
             expect(described_class.conjugate(verb)).to eq(expected)

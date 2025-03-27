@@ -5,6 +5,7 @@ module Kanjika
       E_ENDINGS = "えけげせぜてでねへべめれ"
       I_ENDINGS = "いきぎしじちぢにひびみり"
 
+      # https://conjugator.reverso.net/conjugation-rules-model-japanese-info.html
       ICHIDAN_TYPE = :ichidan
       GODAN_TYPE = :godan
       IRREGULAR_TYPE = :irregular
@@ -19,6 +20,10 @@ module Kanjika
 
       def initialize(verb)
         @verb = verb
+      end
+
+      def group
+        binding.irb
       end
 
       def conjugate

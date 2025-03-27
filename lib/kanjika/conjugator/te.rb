@@ -13,19 +13,32 @@ module Kanjika
         :ぐ => {
           positive: "いで",
           negative: "がなくて"
+        },
+        :す => {
+          positive: "して",
+          negative: "さなくて"
+        },
+        :つ => {
+          positive: "って",
+          negative: "たなくて"
+        },
+        :ぬ => {
+          positive: "んで",
+          negative: "ななくて"
+        },
+        :ぶ => {
+          positive: "んで",
+          negative: "ばなくて"
+        },
+        :む => {
+          positive: "んで",
+          negative: "まなくて"
+        },
+        :る => {
+          positive: "って",
+          negative: "らなくて"
         }
       }
-      # GODAN_ENDINGS = {
-      #   "う" => "って",
-      #   "く" => "いて",
-      #   "ぐ" => "いで",
-      #   "す" => "して",
-      #   "つ" => "って",
-      #   "ぬ" => "んで",
-      #   "ぶ" => "んで",
-      #   "む" => "んで",
-      #   "る" => "って"
-      # }
       # ICHIDAN_ENDINGS = {
       #   "る" => "て"
       # }
