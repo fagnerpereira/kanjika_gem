@@ -1,7 +1,7 @@
 module Kanjika
   module Conjugator
     class Base
-      U_ENDINGS = "うくぐすずつづぬふぶむゆる"
+      U_ENDINGS = "うくぐすずつづぬふぶむる"
       E_ENDINGS = "えけげせぜてでねへべめれ"
       I_ENDINGS = "いきぎしじちぢにひびみり"
 
@@ -16,6 +16,11 @@ module Kanjika
       KURU = "カ変"
       NOUN_VERB = "サ変接続"
 
+      IRREGULARS_STEM = {
+        "来る" => "来",
+        "くる" => "き"
+      }
+
       attr_reader :verb
 
       def initialize(verb)
@@ -27,6 +32,14 @@ module Kanjika
         return :godan if godan?
         return :suru if suru?
         :irregular
+      end
+
+      def stem
+        # binding.irb
+        return verb.chop if ichidan?
+        return verb.tr(U_ENDINGS, I_ENDINGS) if godan?
+        return verb.gsub("する", "し") if suru?
+        IRREGULARS_STEM[verb]
       end
 
       def conjugate
@@ -57,10 +70,6 @@ module Kanjika
         Ve.in(:ja).words(verb).first.tokens.map do |tokens|
           tokens[:inflection_type].split("・")
         end.flatten
-      end
-
-      def stem
-        verb.chop
       end
     end
   end
