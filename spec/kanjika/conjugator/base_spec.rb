@@ -78,4 +78,38 @@ RSpec.describe Kanjika::Conjugator::Base do
       end
     end
   end
+
+  describe "#present" do
+    context "ichidan verbs" do
+      it do
+        conjugator = described_class.new("食べる")
+        expect(conjugator.present).to match({
+          positive: {
+            plain: "食べる",
+            polite: "食べます"
+          },
+          negative: {
+            plain: "食べない",
+            polite: "食べません"
+          }
+        })
+      end
+    end
+
+    context "godan verbs" do
+      it do
+        conjugator = described_class.new("買う")
+        expect(conjugator.present).to match({
+          positive: {
+            plain: "買う",
+            polite: "買います"
+          },
+          negative: {
+            plain: "買わない",
+            polite: "買いません"
+          }
+        })
+      end
+    end
+  end
 end

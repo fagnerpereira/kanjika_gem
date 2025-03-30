@@ -2,8 +2,10 @@ module Kanjika
   module Conjugator
     class Base
       U_ENDINGS = "うくぐすずつづぬふぶむる"
+      A_ENDINGS = "わかがさざただなはばまら"
       E_ENDINGS = "えけげせぜてでねへべめれ"
       I_ENDINGS = "いきぎしじちぢにひびみり"
+      O_ENDINGS = "おこごそぞとどのほぼもろ"
 
       # https://conjugator.reverso.net/conjugation-rules-model-japanese-info.html
       ICHIDAN_TYPE = :ichidan
@@ -35,11 +37,23 @@ module Kanjika
       end
 
       def stem
-        # binding.irb
         return verb.chop if ichidan?
         return verb.tr(U_ENDINGS, I_ENDINGS) if godan?
         return verb.gsub("する", "し") if suru?
         IRREGULARS_STEM[verb]
+      end
+
+      def present
+        {
+          positive: {
+            plain: process.lemma,
+            polite: stem + "ます"
+          },
+          negative: {
+            plain: stem + "ない",
+            polite: stem + "ません"
+          }
+        }
       end
 
       def conjugate
@@ -67,9 +81,13 @@ module Kanjika
       end
 
       def inflection_types
-        Ve.in(:ja).words(verb).first.tokens.map do |tokens|
+        process.tokens.map do |tokens|
           tokens[:inflection_type].split("・")
         end.flatten
+      end
+
+      def process
+        Ve.in(:ja).words(verb).first
       end
     end
   end

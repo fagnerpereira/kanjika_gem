@@ -1,26 +1,6 @@
 module Kanjika
   module Conjugator
     class Masu < Base
-      GODAN_ENDINGS = {
-        "う" => "い",
-        "く" => "き",
-        "ぐ" => "ぎ",
-        "す" => "し",
-        "つ" => "ち",
-        "ぬ" => "に",
-        "ぶ" => "び",
-        "む" => "み",
-        "る" => "り"
-      }
-      ICHIDAN_MASU_FORMS = {
-        "る" => "ます"
-      }
-      IRREGULARS = {
-        "来る" => "来",
-        "くる" => "き",
-        "する" => "し"
-      }
-
       def conjugate(negative: false)
         @negative = negative
 
