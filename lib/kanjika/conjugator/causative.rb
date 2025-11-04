@@ -25,7 +25,7 @@ module Kanjika
         "くる" => "こさせる"
       }
 
-      def conjugate
+      def conjugate(negative: false)
         Ve.in(:ja).words(verb).flat_map do |word|
           word.tokens.map { |token| conjugate_token(word, token) }.join
         end.join

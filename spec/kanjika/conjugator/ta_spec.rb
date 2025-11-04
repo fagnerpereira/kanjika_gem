@@ -1,26 +1,25 @@
-
 # spec/kanjika/conjugator/ta_spec.rb
-require 'spec_helper'
+require "spec_helper"
 
 # This is a new test file for a feature that does not exist yet.
 # These tests will fail until the Kanjika::Conjugator::Ta class is implemented.
 RSpec.describe Kanjika::Conjugator::Ta do
   subject(:conjugator) { described_class.new(verb) }
 
-  describe '#conjugate' do
-    describe 'godan verbs' do
+  describe "#conjugate" do
+    describe "godan verbs" do
       # The -ta form rules are very similar to the -te form.
       # -te becomes -ta, -de becomes -da.
       verb_cases = {
-        'う' => { "会う" => ["会った", "会わなかった"] },
-        'つ' => { "待つ" => ["待った", "待たなかった"] },
-        'る' => { "帰る" => ["帰った", "帰らなかった"] },
-        'く' => { "書く" => ["書いた", "書かなかった"] },
-        'ぐ' => { "泳ぐ" => ["泳いだ", "泳がなかった"] },
-        'す' => { "話す" => ["話した", "話さなかった"] },
-        'ぬ' => { "死ぬ" => ["死んだ", "死ななかった"] },
-        'ぶ' => { "遊ぶ" => ["遊んだ", "遊ばなかった"] },
-        'む' => { "読む" => ["読んだ", "読まなかった"] }
+        "う" => {"会う" => ["会った", "会わなかった"]},
+        "つ" => {"待つ" => ["待った", "待たなかった"]},
+        "る" => {"帰る" => ["帰った", "帰らなかった"]},
+        "く" => {"書く" => ["書いた", "書かなかった"]},
+        "ぐ" => {"泳ぐ" => ["泳いだ", "泳がなかった"]},
+        "す" => {"話す" => ["話した", "話さなかった"]},
+        "ぬ" => {"死ぬ" => ["死んだ", "死ななかった"]},
+        "ぶ" => {"遊ぶ" => ["遊んだ", "遊ばなかった"]},
+        "む" => {"読む" => ["読んだ", "読まなかった"]}
       }
 
       verb_cases.each do |ending, examples|
@@ -50,7 +49,7 @@ RSpec.describe Kanjika::Conjugator::Ta do
       end
     end
 
-    describe 'ichidan verbs' do
+    describe "ichidan verbs" do
       verb_cases = {
         "食べる" => ["食べた", "食べなかった"],
         "見る" => ["見た", "見なかった"],
@@ -72,7 +71,7 @@ RSpec.describe Kanjika::Conjugator::Ta do
       end
     end
 
-    describe 'irregular verbs' do
+    describe "irregular verbs" do
       verb_cases = {
         "する" => ["した", "しなかった"],
         "勉強する" => ["勉強した", "勉強しなかった"],

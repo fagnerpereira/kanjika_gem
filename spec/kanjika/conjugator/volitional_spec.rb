@@ -1,13 +1,12 @@
-
 # spec/kanjika/conjugator/volitional_spec.rb
-require 'spec_helper'
+require "spec_helper"
 
 # Failing tests for the unimplemented Volitional form.
 RSpec.describe Kanjika::Conjugator::Volitional do
   subject(:conjugator) { described_class.new(verb) }
 
-  describe '#conjugate' do
-    context 'for godan verbs' do
+  describe "#conjugate" do
+    context "for godan verbs" do
       # Rule: Change final 'u' vowel to 'o' and add う
       verb_cases = {
         "書く" => "書こう",
@@ -27,7 +26,7 @@ RSpec.describe Kanjika::Conjugator::Volitional do
       end
     end
 
-    context 'for ichidan verbs' do
+    context "for ichidan verbs" do
       # Rule: Replace final る with よう
       verb_cases = {
         "食べる" => "食べよう",
@@ -46,7 +45,7 @@ RSpec.describe Kanjika::Conjugator::Volitional do
       end
     end
 
-    context 'for irregular verbs' do
+    context "for irregular verbs" do
       verb_cases = {
         "する" => "しよう",
         "来る" => "来よう" # (koyou)

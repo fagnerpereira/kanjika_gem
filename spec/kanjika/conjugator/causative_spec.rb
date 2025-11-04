@@ -1,13 +1,12 @@
-
 # spec/kanjika/conjugator/causative_spec.rb
-require 'spec_helper'
+require "spec_helper"
 
 # Failing tests for the unimplemented Causative form.
 RSpec.describe Kanjika::Conjugator::Causative do
   subject(:conjugator) { described_class.new(verb) }
 
-  describe '#conjugate' do
-    context 'for godan verbs' do
+  describe "#conjugate" do
+    context "for godan verbs" do
       # Rule: Change final 'u' vowel to 'a' and add せる
       verb_cases = {
         "書く" => "書かせる",
@@ -27,7 +26,7 @@ RSpec.describe Kanjika::Conjugator::Causative do
       end
     end
 
-    context 'for ichidan verbs' do
+    context "for ichidan verbs" do
       # Rule: Replace final る with させる
       verb_cases = {
         "食べる" => "食べさせる",
@@ -46,7 +45,7 @@ RSpec.describe Kanjika::Conjugator::Causative do
       end
     end
 
-    context 'for irregular verbs' do
+    context "for irregular verbs" do
       verb_cases = {
         "する" => "させる",
         "来る" => "来させる" # (kosaseru)

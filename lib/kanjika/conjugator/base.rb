@@ -27,6 +27,7 @@ module Kanjika
 
       def initialize(verb)
         @verb = verb
+        @words = Ve.in(:ja).words(verb)
       end
 
       def group
@@ -66,33 +67,42 @@ module Kanjika
         end
       end
 
-      def conjugate
+      def conjugate(negative: false)
+        @negative = negative
+        @words.flat_map do |word|
+          word.tokens.map { |token| conjugate_token(word, token) }.join
+        end.join
+      end
+
+      def conjugate_token(word, token)
         raise NotImplementedError
       end
 
-      def ichidan?
-        inflection_types.include?(ICHIDAN)
+      def ichidan?(token = nil)
+        inflection_types(token).include?(ICHIDAN)
       end
 
-      def godan?
-        inflection_types.include?(GODAN)
+      def godan?(token = nil)
+        inflection_types(token).include?(GODAN)
       end
 
-      def suru?
-        inflection_types.include?(SURU)
+      def suru?(token = nil)
+        inflection_types(token).include?(SURU)
       end
 
-      def irregular?
-        inflection_types.include?(KURU)
+      def irregular?(token = nil)
+        types = inflection_types(token)
+        types.include?(KURU) || types.include?(SURU)
       end
 
       def ending_in_e_or_i?
         E_ENDINGS.include?(verb[-2]) || I_ENDINGS.include?(verb[-2])
       end
 
-      def inflection_types
-        process.tokens.map do |tokens|
-          tokens[:inflection_type].split("・")
+      def inflection_types(token = nil)
+        source = token ? [token] : process.tokens
+        source.map do |tok|
+          tok[:inflection_type].split("・")
         end.flatten
       end
 

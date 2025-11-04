@@ -1,21 +1,21 @@
 # spec/kanjika/conjugator/te_spec.rb
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe Kanjika::Conjugator::Te do
   subject(:conjugator) { described_class.new(verb) }
 
-  describe '#conjugate' do
-    describe 'godan verbs' do
+  describe "#conjugate" do
+    describe "godan verbs" do
       verb_cases = {
-        'う' => { "会う" => ["会って", "会わなくて"], "買う" => ["買って", "買わなくて"] },
-        'つ' => { "待つ" => ["待って", "待たなくて"] },
-        'る' => { "帰る" => ["帰って", "帰らなくて"] },
-        'く' => { "書く" => ["書いて", "書かなくて"] },
-        'ぐ' => { "泳ぐ" => ["泳いで", "泳がなくて"] },
-        'す' => { "話す" => ["話して", "話さなくて"] },
-        'ぬ' => { "死ぬ" => ["死んで", "死ななくて"] },
-        'ぶ' => { "遊ぶ" => ["遊んで", "遊ばなくて"] },
-        'む' => { "読む" => ["読んで", "読まなくて"] }
+        "う" => {"会う" => ["会って", "会わなくて"], "買う" => ["買って", "買わなくて"]},
+        "つ" => {"待つ" => ["待って", "待たなくて"]},
+        "る" => {"帰る" => ["帰って", "帰らなくて"]},
+        "く" => {"書く" => ["書いて", "書かなくて"]},
+        "ぐ" => {"泳ぐ" => ["泳いで", "泳がなくて"]},
+        "す" => {"話す" => ["話して", "話さなくて"]},
+        "ぬ" => {"死ぬ" => ["死んで", "死ななくて"]},
+        "ぶ" => {"遊ぶ" => ["遊んで", "遊ばなくて"]},
+        "む" => {"読む" => ["読んで", "読まなくて"]}
       }
 
       verb_cases.each do |ending, examples|
@@ -46,7 +46,7 @@ RSpec.describe Kanjika::Conjugator::Te do
       end
     end
 
-    describe 'ichidan verbs' do
+    describe "ichidan verbs" do
       verb_cases = {
         "食べる" => ["食べて", "食べなくて"],
         "見る" => ["見て", "見なくて"],
@@ -68,7 +68,7 @@ RSpec.describe Kanjika::Conjugator::Te do
       end
     end
 
-    describe 'irregular verbs' do
+    describe "irregular verbs" do
       verb_cases = {
         "する" => ["して", "しなくて"],
         "勉強する" => ["勉強して", "勉強しなくて"],
@@ -91,7 +91,7 @@ RSpec.describe Kanjika::Conjugator::Te do
       end
     end
 
-    describe 'verbal nouns (suru verbs)' do
+    describe "verbal nouns (suru verbs)" do
       let(:verb) { "勉強" }
       it "conjugates '勉強' to '勉強して'" do
         expect(conjugator.conjugate).to eq("勉強して")
@@ -99,12 +99,11 @@ RSpec.describe Kanjika::Conjugator::Te do
       end
     end
 
-    describe 'error and edge cases' do
+    describe "error and edge cases" do
       context "with an invalid verb" do
         let(:verb) { "きれい" } # na-adjective
-        it "returns a sensible value or error message" do
-          # The current implementation returns "invalid verb"
-          expect(conjugator.conjugate).to eq("invalid verb")
+        it "raises an InvalidVerbError" do
+          expect { conjugator.conjugate }.to raise_error(Kanjika::InvalidVerbError, "'きれい' is not a valid verb")
         end
       end
     end

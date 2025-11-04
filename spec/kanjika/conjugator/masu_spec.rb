@@ -1,22 +1,22 @@
 # spec/kanjika/conjugator/masu_spec.rb
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe Kanjika::Conjugator::Masu do
   subject(:conjugator) { described_class.new(verb) }
 
-  describe '#conjugate' do
-    describe 'godan verbs' do
+  describe "#conjugate" do
+    describe "godan verbs" do
       # Parameterized tests for each verb ending
       verb_cases = {
-        'う' => { "会う" => ["会います", "会いません"], "使う" => ["使います", "使いません"] },
-        'く' => { "書く" => ["書きます", "書きません"], "歩く" => ["歩きます", "歩きません"] },
-        'ぐ' => { "泳ぐ" => ["泳ぎます", "泳ぎません"], "急ぐ" => ["急ぎます", "急ぎません"] },
-        'す' => { "話す" => ["話します", "話しません"], "押す" => ["押します", "押しません"] },
-        'つ' => { "持つ" => ["持ちます", "持ちません"], "待つ" => ["待ちます", "待ちません"] },
-        'ぬ' => { "死ぬ" => ["死にます", "死にません"] },
-        'ぶ' => { "飛ぶ" => ["飛びます", "飛びません"], "遊ぶ" => ["遊びます", "遊びません"] },
-        'む' => { "読む" => ["読みます", "読みません"], "飲む" => ["飲みます", "飲みません"] },
-        'る' => { "切る" => ["切ります", "切りません"], "走る" => ["走ります", "走りません"] }
+        "う" => {"会う" => ["会います", "会いません"], "使う" => ["使います", "使いません"]},
+        "く" => {"書く" => ["書きます", "書きません"], "歩く" => ["歩きます", "歩きません"]},
+        "ぐ" => {"泳ぐ" => ["泳ぎます", "泳ぎません"], "急ぐ" => ["急ぎます", "急ぎません"]},
+        "す" => {"話す" => ["話します", "話しません"], "押す" => ["押します", "押しません"]},
+        "つ" => {"持つ" => ["持ちます", "持ちません"], "待つ" => ["待ちます", "待ちません"]},
+        "ぬ" => {"死ぬ" => ["死にます", "死にません"]},
+        "ぶ" => {"飛ぶ" => ["飛びます", "飛びません"], "遊ぶ" => ["遊びます", "遊びません"]},
+        "む" => {"読む" => ["読みます", "読みません"], "飲む" => ["飲みます", "飲みません"]},
+        "る" => {"切る" => ["切ります", "切りません"], "走る" => ["走ります", "走りません"]}
       }
 
       verb_cases.each do |ending, examples|
@@ -38,7 +38,7 @@ RSpec.describe Kanjika::Conjugator::Masu do
       end
     end
 
-    describe 'ichidan verbs' do
+    describe "ichidan verbs" do
       verb_cases = {
         "食べる" => ["食べます", "食べません"],
         "見る" => ["見ます", "見ません"],
@@ -64,7 +64,7 @@ RSpec.describe Kanjika::Conjugator::Masu do
       end
     end
 
-    describe 'irregular verbs' do
+    describe "irregular verbs" do
       verb_cases = {
         "する" => ["します", "しません"],
         "勉強する" => ["勉強します", "勉強しません"],
@@ -88,7 +88,7 @@ RSpec.describe Kanjika::Conjugator::Masu do
       end
     end
 
-    describe 'verbal nouns (suru verbs)' do
+    describe "verbal nouns (suru verbs)" do
       let(:verb) { "勉強" }
       it "conjugates '勉強' to '勉強します'" do
         # This is a special case. The current logic might not handle it,
@@ -99,7 +99,7 @@ RSpec.describe Kanjika::Conjugator::Masu do
       end
     end
 
-    describe 'edge cases and invalid inputs' do
+    describe "edge cases and invalid inputs" do
       context "with non-verb input" do
         let(:verb) { "わたし" }
         it "returns the input unchanged" do

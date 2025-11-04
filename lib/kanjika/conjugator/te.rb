@@ -39,19 +39,14 @@ module Kanjika
           negative: "らなくて"
         }
       }
+      ICHIDAN_ENDINGS = {
+        "る" => "て"
+      }.freeze
+
       IRREGULARS = {
-        "する" => "して"
-      }
-
-      def conjugate(negative: false)
-        @negative = negative
-
-        Ve.in(:ja).words(verb).flat_map do |word|
-          word.tokens.map { |token| conjugate_token(word, token) }.join
-        end.join
-      end
-
-      private
+        "くる" => {positive: "きて", negative: "こなくて"},
+        "来る" => {positive: "来て", negative: "来なくて"}
+      }.freeze
 
       def conjugate_token(word, token)
         if word.part_of_speech.name == "verb"
@@ -63,7 +58,8 @@ module Kanjika
 
       def conjugate_verb(token)
         verb_type = determine_verb_type(token)
-        apply_conjugation_rule(verb_type)
+        return token[:lemma] if verb_type.nil?
+        apply_conjugation_rule(verb_type, token)
       end
 
       def determine_verb_type(token)
@@ -72,43 +68,40 @@ module Kanjika
         :irregular if irregular?(token)
       end
 
-      CONJUGATION_RULES = {
-        ichidan: ->(stem, last_char) { stem + ICHIDAN_ENDINGS[last_char] },
-        godan: ->(stem, last_char) { stem + GODAN_ENDINGS[last_char] },
-        irregular: ->(verb) { IRREGULARS[verb] }
-      }
-
-      def apply_conjugation_rule(verb_type)
+      def apply_conjugation_rule(verb_type, token)
+        lemma = token[:lemma]
         case verb_type
         when ICHIDAN_TYPE
           conjugate_ichidan
         when GODAN_TYPE
           conjugate_godan
         when IRREGULAR_TYPE
-          # IRREGULARS[lemma] + suffix
+          if suru?(token)
+            stem = lemma.gsub("する", "")
+            return @negative ? stem + "しなくて" : stem + "して"
+          end
+
+          conjugation = IRREGULARS[lemma]
+          if conjugation
+            @negative ? conjugation[:negative] : conjugation[:positive]
+          end
         end
-        # rule = CONJUGATION_RULES[verb_type]
-        # case verb_type
-        # when :ichidan
-        #   rule.call(stem, verb[-1])
-        # when :godan
-        #   rule.call(stem, verb[-1])
-        # when :irregular
-        #   rule.call(verb)
-        # end
       end
 
       def conjugate_godan
-        # Transform u->i for godan stem
-        godan_stem = verb[0..-2] + verb[-1].tr(U_ENDINGS, I_ENDINGS)
-        godan_stem + suffix
+        if verb == "行く"
+          return @negative ? "行かなくて" : "行って"
+        end
+        stem = verb[0..-2]
+        stem + suffix
       end
 
       def suffix
+        ending = verb[-1]
         if @negative
-          GODAN_ENDINGS.dig(verb[-1].to_sym, :negative)
+          GODAN_ENDINGS.dig(ending.to_sym, :negative)
         else
-          GODAN_ENDINGS.dig(verb[-1].to_sym, :positive)
+          GODAN_ENDINGS.dig(ending.to_sym, :positive)
         end
       end
 
@@ -123,23 +116,10 @@ module Kanjika
 
       def conjugate_others(token)
         if token[:raw].include?(NOUN_VERB)
-          verb + IRREGULARS["する"]
+          verb + (@negative ? "しなくて" : "して")
         else
-          "invalid verb"
+          raise InvalidVerbError, "'#{verb}' is not a valid verb"
         end
-      end
-
-      def ichidan?(token)
-        token[:inflection_type].split("・").include?(ICHIDAN)
-      end
-
-      def godan?(token)
-        token[:inflection_type].split("・").include?(GODAN)
-      end
-
-      def irregular?(token)
-        token[:inflection_type].split("・").include?(KURU) ||
-          token[:inflection_type].split("・").include?(SURU)
       end
     end
   end

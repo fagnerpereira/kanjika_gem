@@ -1,8 +1,7 @@
 .rspec_status
 pkg
 .DS_Store
-CLAUDE.md
-GEMINI.md
 .claude/settings.local.json
-GEMINI_TODOS.md
-PROJECT_ASSESSMENT.md
+/coverage/
+*.gem
+.bundle/

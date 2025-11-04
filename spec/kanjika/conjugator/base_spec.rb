@@ -1,10 +1,10 @@
 # spec/kanjika/conjugator/base_spec.rb
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe Kanjika::Conjugator::Base do
   subject(:conjugator) { described_class.new(verb) }
 
-  describe '#group' do
+  describe "#group" do
     verb_groups = {
       ichidan: %w[食べる 見る 起きる 教える],
       godan: %w[買う 書く 泳ぐ 話す 飲む],
@@ -23,7 +23,7 @@ RSpec.describe Kanjika::Conjugator::Base do
     end
   end
 
-  describe '#stem' do
+  describe "#stem" do
     stem_cases = {
       # Ichidan: remove る
       "食べる" => "食べ",
@@ -48,31 +48,31 @@ RSpec.describe Kanjika::Conjugator::Base do
     end
   end
 
-  describe '#present' do
-    context 'for an ichidan verb' do
+  describe "#present" do
+    context "for an ichidan verb" do
       let(:verb) { "食べる" }
       let(:expected) do
         {
-          positive: { plain: "食べる", polite: "食べます" },
-          negative: { plain: "食べない", polite: "食べません" }
+          positive: {plain: "食べる", polite: "食べます"},
+          negative: {plain: "食べない", polite: "食べません"}
         }
       end
 
-      it 'returns a hash with all present tense forms' do
+      it "returns a hash with all present tense forms" do
         expect(conjugator.present).to eq(expected)
       end
     end
 
-    context 'for a godan verb' do
+    context "for a godan verb" do
       let(:verb) { "書く" }
       let(:expected) do
         {
-          positive: { plain: "書く", polite: "書きます" },
-          negative: { plain: "書かない", polite: "書きません" }
+          positive: {plain: "書く", polite: "書きます"},
+          negative: {plain: "書かない", polite: "書きません"}
         }
       end
 
-      it 'returns a hash with all present tense forms' do
+      it "returns a hash with all present tense forms" do
         expect(conjugator.present).to eq(expected)
       end
     end
