@@ -50,10 +50,20 @@ module Kanjika
             polite: stem + "ます"
           },
           negative: {
-            plain: stem + "ない",
+            plain: negative_plain_form,
             polite: stem + "ません"
           }
         }
+      end
+
+      def negative_plain_form
+        if godan?
+          # For godan verbs, transform u->a for negative
+          verb[0..-2] + verb[-1].tr(U_ENDINGS, A_ENDINGS) + "ない"
+        else
+          # For ichidan, suru, and irregular, use stem + ない
+          stem + "ない"
+        end
       end
 
       def conjugate

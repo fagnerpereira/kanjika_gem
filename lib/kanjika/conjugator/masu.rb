@@ -1,6 +1,14 @@
 module Kanjika
   module Conjugator
     class Masu < Base
+      IRREGULARS = {
+        "する" => "し",
+        "来る" => "来",
+        "くる" => "き"
+      }
+
+      GODAN_ENDINGS = {}
+
       def conjugate(negative: false)
         @negative = negative
 
@@ -51,18 +59,21 @@ module Kanjika
       end
 
       def conjugate_godan
-        stem + GODAN_ENDINGS[verb[-1]] + suffix
+        # Transform u->i for godan verbs, then add suffix
+        godan_stem = verb[0..-2] + verb[-1].tr(U_ENDINGS, I_ENDINGS)
+        godan_stem + suffix
       end
 
       def conjugate_ichidan
-        stem + suffix
+        # Remove る for ichidan verbs
+        verb.chop + suffix
       end
 
       def conjugate_others(token)
         return verb + "し#{suffix}" if verb.kanji?
 
         if ending_in_e_or_i?
-          stem + suffix
+          verb.chop + suffix
         elsif godan_ending?
           conjugate_godan
         end
@@ -76,6 +87,19 @@ module Kanjika
         return "ません" if @negative
 
         "ます"
+      end
+
+      def ichidan?(token)
+        token[:inflection_type].split("・").include?(ICHIDAN)
+      end
+
+      def godan?(token)
+        token[:inflection_type].split("・").include?(GODAN)
+      end
+
+      def irregular?(token)
+        token[:inflection_type].split("・").include?(KURU) ||
+          token[:inflection_type].split("・").include?(SURU)
       end
     end
   end

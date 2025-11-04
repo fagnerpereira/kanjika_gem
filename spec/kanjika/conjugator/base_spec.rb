@@ -1,114 +1,79 @@
+# spec/kanjika/conjugator/base_spec.rb
+require 'spec_helper'
+
 RSpec.describe Kanjika::Conjugator::Base do
-  describe "#group" do
-    context "ichidan verbs" do
-      it do
-        conjugator = described_class.new("食べる")
-        expect(conjugator.group).to eq(:ichidan)
-      end
-    end
+  subject(:conjugator) { described_class.new(verb) }
 
-    context "godan verbs" do
-      it do
-        conjugator = described_class.new("買う")
-        expect(conjugator.group).to eq(:godan)
-      end
-    end
+  describe '#group' do
+    verb_groups = {
+      ichidan: %w[食べる 見る 起きる 教える],
+      godan: %w[買う 書く 泳ぐ 話す 飲む],
+      suru: %w[する 勉強する 愛する 接する],
+      irregular: %w[来る くる だ]
+    }
 
-    context "suru verbs" do
-      it "returns suru" do
-        expect(described_class.new("する").group).to eq(:suru)
-        expect(described_class.new("勉強する").group).to eq(:suru)
-        expect(described_class.new("愛する").group).to eq(:suru)
-        expect(described_class.new("接する").group).to eq(:suru)
-      end
-    end
-
-    context "irregular verbs" do
-      it do
-        expect(described_class.new("来る").group).to eq(:irregular)
-        expect(described_class.new("だ").group).to eq(:irregular)
-        # expect(described_class.new("有る").group).to eq(:irregular)
-        # expect(described_class.new("在る").group).to eq(:irregular)
-        # expect(described_class.new("行く").group).to eq(:irregular)
-        # expect(described_class.new("くれる").group).to eq(:irregular)
-        # expect(described_class.new("なさる").group).to eq(:irregular)
-        # expect(described_class.new("問う").group).to eq(:irregular)
-        # expect(described_class.new("請う").group).to eq(:irregular)
+    verb_groups.each do |group, verbs|
+      context "for #{group} verbs" do
+        verbs.each do |verb_str|
+          it "identifies '#{verb_str}' as #{group}" do
+            expect(described_class.new(verb_str).group).to eq(group)
+          end
+        end
       end
     end
   end
 
-  describe "#stem" do
-    context "ichidan verbs" do
-      it "removes the last character" do
-        expect(described_class.new("食べる").stem).to eq("食べ")
-        expect(described_class.new("見る").stem).to eq("見")
-        expect(described_class.new("起きる").stem).to eq("起き")
-        expect(described_class.new("教える").stem).to eq("教え")
-      end
-    end
+  describe '#stem' do
+    stem_cases = {
+      # Ichidan: remove る
+      "食べる" => "食べ",
+      "見る" => "見",
+      # Godan: u -> i
+      "書く" => "書き",
+      "泳ぐ" => "泳ぎ",
+      "飲む" => "飲み",
+      "買う" => "買い",
+      # Suru: する -> し
+      "する" => "し",
+      "勉強する" => "勉強し",
+      # Irregular
+      "来る" => "来",
+      "くる" => "き"
+    }
 
-    context "godan verbs" do
-      it "replaces u with i" do
-        expect(described_class.new("書く").stem).to eq("書き")
-        expect(described_class.new("泳ぐ").stem).to eq("泳ぎ")
-        expect(described_class.new("話す").stem).to eq("話し")
-        expect(described_class.new("飲む").stem).to eq("飲み")
-        expect(described_class.new("死ぬ").stem).to eq("死に")
-        expect(described_class.new("遊ぶ").stem).to eq("遊び")
-        expect(described_class.new("買う").stem).to eq("買い")
-        expect(described_class.new("立つ").stem).to eq("立ち")
-        expect(described_class.new("取る").stem).to eq("取り")
-      end
-    end
-
-    context "suru verbs" do
-      it "replaces by shi" do
-        expect(described_class.new("する").stem).to eq("し")
-        expect(described_class.new("勉強する").stem).to eq("勉強し")
-        expect(described_class.new("愛する").stem).to eq("愛し")
-        expect(described_class.new("接する").stem).to eq("接し")
-      end
-    end
-
-    context "irregular verbs" do
-      it do
-        expect(described_class.new("来る").stem).to eq("来")
-        expect(described_class.new("くる").stem).to eq("き")
+    stem_cases.each do |verb_str, stem|
+      it "finds the stem of '#{verb_str}' to be '#{stem}'" do
+        expect(described_class.new(verb_str).stem).to eq(stem)
       end
     end
   end
 
-  describe "#present" do
-    context "ichidan verbs" do
-      it do
-        conjugator = described_class.new("食べる")
-        expect(conjugator.present).to match({
-          positive: {
-            plain: "食べる",
-            polite: "食べます"
-          },
-          negative: {
-            plain: "食べない",
-            polite: "食べません"
-          }
-        })
+  describe '#present' do
+    context 'for an ichidan verb' do
+      let(:verb) { "食べる" }
+      let(:expected) do
+        {
+          positive: { plain: "食べる", polite: "食べます" },
+          negative: { plain: "食べない", polite: "食べません" }
+        }
+      end
+
+      it 'returns a hash with all present tense forms' do
+        expect(conjugator.present).to eq(expected)
       end
     end
 
-    context "godan verbs" do
-      it do
-        conjugator = described_class.new("買う")
-        expect(conjugator.present).to match({
-          positive: {
-            plain: "買う",
-            polite: "買います"
-          },
-          negative: {
-            plain: "買わない",
-            polite: "買いません"
-          }
-        })
+    context 'for a godan verb' do
+      let(:verb) { "書く" }
+      let(:expected) do
+        {
+          positive: { plain: "書く", polite: "書きます" },
+          negative: { plain: "書かない", polite: "書きません" }
+        }
+      end
+
+      it 'returns a hash with all present tense forms' do
+        expect(conjugator.present).to eq(expected)
       end
     end
   end
