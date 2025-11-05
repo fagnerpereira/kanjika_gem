@@ -91,13 +91,13 @@ module Kanjika
       end
 
       def inflection_types
-        process.tokens.map do |tokens|
+        @inflection_types ||= process.tokens.map do |tokens|
           tokens[:inflection_type].split("・")
         end.flatten
       end
 
       def process
-        Ve.in(:ja).words(verb).first
+        @process ||= Ve.in(:ja).words(verb).first
       end
     end
   end
