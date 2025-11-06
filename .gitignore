@@ -5,3 +5,4 @@ pkg
 /coverage/
 *.gem
 .bundle/
+.genkit/traces_idx/genkit.metadata
