@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 module Kanjika
   module Conjugator
     class Base
-      U_ENDINGS = "うくぐすずつづぬふぶむる"
-      A_ENDINGS = "わかがさざただなはばまら"
-      E_ENDINGS = "えけげせぜてでねへべめれ"
-      I_ENDINGS = "いきぎしじちぢにひびみり"
-      O_ENDINGS = "おこごそぞとどのほぼもろ"
+      U_ENDINGS = "うくぐすつぬふぶむる"
+      A_ENDINGS = "わかがさたなはまら"
+      E_ENDINGS = "えけげせてねへべめれ"
+      I_ENDINGS = "いきぎしちにひびみり"
 
       # https://conjugator.reverso.net/conjugation-rules-model-japanese-info.html
       ICHIDAN_TYPE = :ichidan
@@ -27,7 +28,6 @@ module Kanjika
 
       def initialize(verb)
         @verb = verb
-        @words = Ve.in(:ja).words(verb)
       end
 
       def group
@@ -38,6 +38,8 @@ module Kanjika
       end
 
       def stem
+        return if verb.to_s.empty?
+
         return verb.chop if ichidan?
         return verb.tr(U_ENDINGS, I_ENDINGS) if godan?
         return verb.gsub("する", "し") if suru?
@@ -47,12 +49,12 @@ module Kanjika
       def present
         {
           positive: {
-            plain: process.lemma,
-            polite: stem + "ます"
+            plain: process.first.lemma,
+            polite: "#{stem}ます"
           },
           negative: {
             plain: negative_plain_form,
-            polite: stem + "ません"
+            polite: "#{stem}ません"
           }
         }
       end
@@ -60,54 +62,46 @@ module Kanjika
       def negative_plain_form
         if godan?
           # For godan verbs, transform u->a for negative
-          verb[0..-2] + verb[-1].tr(U_ENDINGS, A_ENDINGS) + "ない"
+          verb.chop + verb[-1].tr(U_ENDINGS, A_ENDINGS) + "ない"
         else
           # For ichidan, suru, and irregular, use stem + ない
-          stem + "ない"
+          "#{stem}ない"
         end
       end
 
-      def conjugate(negative: false)
-        @negative = negative
-        @words.flat_map do |word|
-          word.tokens.map { |token| conjugate_token(word, token) }.join
-        end.join
-      end
-
-      def conjugate_token(word, token)
+      def conjugate
         raise NotImplementedError
       end
 
-      def ichidan?(token = nil)
-        inflection_types(token).include?(ICHIDAN)
+      def ichidan?
+        inflection_types.include?(ICHIDAN)
       end
 
-      def godan?(token = nil)
-        inflection_types(token).include?(GODAN)
+      def godan?
+        inflection_types.include?(GODAN)
       end
 
-      def suru?(token = nil)
-        inflection_types(token).include?(SURU)
+      def suru?
+        inflection_types.include?(SURU) || inflection_types.include?(NOUN_VERB)
       end
 
-      def irregular?(token = nil)
-        types = inflection_types(token)
-        types.include?(KURU) || types.include?(SURU)
+      def irregular?
+        inflection_types.include?(KURU)
       end
 
       def ending_in_e_or_i?
         E_ENDINGS.include?(verb[-2]) || I_ENDINGS.include?(verb[-2])
       end
 
-      def inflection_types(token = nil)
-        source = token ? [token] : process.tokens
-        source.map do |tok|
-          tok[:inflection_type].split("・")
-        end.flatten
+      def inflection_types
+        process.flat_map do |word|
+          word.tokens.map { |token| token[:inflection_type] }
+        end.compact.flat_map { |type| type.split("・") }.uniq
       end
 
       def process
-        Ve.in(:ja).words(verb).first
+        return [] if verb.to_s.empty?
+        @process ||= Ve.in(:ja).words(verb)
       end
     end
   end

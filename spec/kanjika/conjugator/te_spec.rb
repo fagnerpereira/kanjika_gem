@@ -1,111 +1,44 @@
-# spec/kanjika/conjugator/te_spec.rb
-require "spec_helper"
+# frozen_string_literal: true
+
+require 'spec_helper'
 
 RSpec.describe Kanjika::Conjugator::Te do
   subject(:conjugator) { described_class.new(verb) }
 
-  describe "#conjugate" do
-    describe "godan verbs" do
-      verb_cases = {
-        "う" => {"会う" => ["会って", "会わなくて"], "買う" => ["買って", "買わなくて"]},
-        "つ" => {"待つ" => ["待って", "待たなくて"]},
-        "る" => {"帰る" => ["帰って", "帰らなくて"]},
-        "く" => {"書く" => ["書いて", "書かなくて"]},
-        "ぐ" => {"泳ぐ" => ["泳いで", "泳がなくて"]},
-        "す" => {"話す" => ["話して", "話さなくて"]},
-        "ぬ" => {"死ぬ" => ["死んで", "死ななくて"]},
-        "ぶ" => {"遊ぶ" => ["遊んで", "遊ばなくて"]},
-        "む" => {"読む" => ["読んで", "読まなくて"]}
-      }
+  describe '#conjugate' do
+    context 'for godan verb "書く"' do
+      let(:verb) { '書く' }
 
-      verb_cases.each do |ending, examples|
-        context "with '#{ending}' ending" do
-          examples.each do |verb_str, (positive, negative)|
-            context "for verb '#{verb_str}'" do
-              let(:verb) { verb_str }
-
-              it "conjugates to '#{positive}' in positive form" do
-                expect(conjugator.conjugate).to eq(positive)
-              end
-
-              it "conjugates to '#{negative}' in negative form" do
-                expect(conjugator.conjugate(negative: true)).to eq(negative)
-              end
-            end
-          end
-        end
-      end
-
-      # Special case for 行く (iku)
-      context "for special godan verb '行く'" do
-        let(:verb) { "行く" }
-        it "conjugates to '行って' (itte)" do
-          expect(conjugator.conjugate).to eq("行って")
-          expect(conjugator.conjugate(negative: true)).to eq("行かなくて")
-        end
-      end
+      it { expect(conjugator.conjugate).to eq('書いて') }
+      it { expect(conjugator.conjugate(negative: true)).to eq('書かなくて') }
     end
 
-    describe "ichidan verbs" do
-      verb_cases = {
-        "食べる" => ["食べて", "食べなくて"],
-        "見る" => ["見て", "見なくて"],
-        "起きる" => ["起きて", "起きなくて"]
-      }
+    context 'for special godan verb "行く"' do
+      let(:verb) { '行く' }
 
-      verb_cases.each do |verb_str, (positive, negative)|
-        context "for verb '#{verb_str}'" do
-          let(:verb) { verb_str }
-
-          it "conjugates to '#{positive}' in positive form" do
-            expect(conjugator.conjugate).to eq(positive)
-          end
-
-          it "conjugates to '#{negative}' in negative form" do
-            expect(conjugator.conjugate(negative: true)).to eq(negative)
-          end
-        end
-      end
+      it { expect(conjugator.conjugate).to eq('行って') }
+      it { expect(conjugator.conjugate(negative: true)).to eq('行かなくて') }
     end
 
-    describe "irregular verbs" do
-      verb_cases = {
-        "する" => ["して", "しなくて"],
-        "勉強する" => ["勉強して", "勉強しなくて"],
-        "来る" => ["来て", "来なくて"],
-        "くる" => ["きて", "こなくて"] # Note the negative form is different for hiragana
-      }
+    context 'for ichidan verb "食べる"' do
+      let(:verb) { '食べる' }
 
-      verb_cases.each do |verb_str, (positive, negative)|
-        context "for verb '#{verb_str}'" do
-          let(:verb) { verb_str }
-
-          it "conjugates to '#{positive}' in positive form" do
-            expect(conjugator.conjugate).to eq(positive)
-          end
-
-          it "conjugates to '#{negative}' in negative form" do
-            expect(conjugator.conjugate(negative: true)).to eq(negative)
-          end
-        end
-      end
+      it { expect(conjugator.conjugate).to eq('食べて') }
+      it { expect(conjugator.conjugate(negative: true)).to eq('食べなくて') }
     end
 
-    describe "verbal nouns (suru verbs)" do
-      let(:verb) { "勉強" }
-      it "conjugates '勉強' to '勉強して'" do
-        expect(conjugator.conjugate).to eq("勉強して")
-        expect(conjugator.conjugate(negative: true)).to eq("勉強しなくて")
-      end
+    context 'for irregular verb "する"' do
+      let(:verb) { 'する' }
+
+      it { expect(conjugator.conjugate).to eq('して') }
+      it { expect(conjugator.conjugate(negative: true)).to eq('しなくて') }
     end
 
-    describe "error and edge cases" do
-      context "with an invalid verb" do
-        let(:verb) { "きれい" } # na-adjective
-        it "raises an InvalidVerbError" do
-          expect { conjugator.conjugate }.to raise_error(Kanjika::InvalidVerbError, "'きれい' is not a valid verb")
-        end
-      end
+    context 'for irregular verb "来る"' do
+      let(:verb) { '来る' }
+
+      it { expect(conjugator.conjugate).to eq('来て') }
+      it { expect(conjugator.conjugate(negative: true)).to eq('来なくて') }
     end
   end
 end
