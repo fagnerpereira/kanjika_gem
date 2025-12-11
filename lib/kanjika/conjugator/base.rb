@@ -13,13 +13,19 @@ module Kanjika
       GODAN_TYPE = :godan
       IRREGULAR_TYPE = :irregular
 
+      # Godan (ごだん)
       GODAN = "五段"
+      # Ichidan (いちだん)
       ICHIDAN = "一段"
+      # Suru (する)
       SURU = "サ変"
+      # Kuru (くる)
       KURU = "カ変"
+      # Noun verb (サ変接続)
       NOUN_VERB = "サ変接続"
 
       IRREGULARS_STEM = {
+        # Kuru (くる) -> Ki (き)
         "来る" => "来",
         "くる" => "き"
       }
