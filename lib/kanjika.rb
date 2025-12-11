@@ -10,11 +10,16 @@ require_relative "kanjika/conjugator/masu"
 require_relative "kanjika/conjugator/te"
 require_relative "kanjika/conjugator/potential"
 
-
 module Kanjika
   class Error < StandardError; end
 
   def self.verb(verb)
     Verb.new(verb)
+  end
+
+  def self.conjugate(verb, form, negative: false)
+    Verb.new(verb).conjugate(form, negative: negative)
+  rescue NameError
+    raise "Unknown form #{form}"
   end
 end

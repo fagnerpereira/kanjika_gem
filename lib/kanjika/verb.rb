@@ -11,5 +11,7 @@ module Kanjika
     def conjugate(type, negative: false)
       "Kanjika::Conjugator::#{type.to_s.camelize}".constantize.new(verb).conjugate(negative: negative)
     end
+
+    alias_method :to, :conjugate
   end
 end
