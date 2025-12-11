@@ -34,7 +34,7 @@ module Kanjika
           end
         end
 
-        # These methods should be implemented by including class
+        # These methods should be implemented by the including class
         def conjugate_ichidan
           raise NotImplementedError, "#{self.class} must implement #conjugate_ichidan"
         end
