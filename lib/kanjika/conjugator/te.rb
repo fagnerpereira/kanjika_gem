@@ -4,16 +4,16 @@ module Kanjika
   module Conjugator
     class Te < Base
       GODAN_MAPPING = {
-        'う' => 'って', 'つ' => 'って', 'る' => 'って',
-        'む' => 'んで', 'ぶ' => 'んで', 'ぬ' => 'んで',
-        'く' => 'いて',
-        'ぐ' => 'いで',
-        'す' => 'して'
+        "う" => "って", "つ" => "って", "る" => "って",
+        "む" => "んで", "ぶ" => "んで", "ぬ" => "んで",
+        "く" => "いて",
+        "ぐ" => "いで",
+        "す" => "して"
       }.freeze
 
       def conjugate(negative: false)
         return negative_te_form if negative
-        return '行って' if verb == '行く' || verb == 'いく'
+        return "行って" if verb == "行く" || verb == "いく"
 
         case group
         when :ichidan
@@ -30,7 +30,7 @@ module Kanjika
       private
 
       def negative_te_form
-        negative_plain_form.chop + 'くて'
+        negative_plain_form.chop + "くて"
       end
     end
   end

@@ -10,7 +10,7 @@ module Kanjika
       private
 
       def suffix(negative)
-        negative ? 'ません' : 'ます'
+        negative ? "ません" : "ます"
       end
     end
   end
