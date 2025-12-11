@@ -1,6 +1,6 @@
 # Kanjika
 
-A comprehensive Ruby gem for Japanese verb conjugation. Kanjika provides an easy-to-use interface for conjugating Japanese verbs across multiple forms including masu (polite), te, and potential forms.
+A practical Ruby gem for Japanese verb conjugation. Kanjika provides an easy-to-use interface for conjugating Japanese verbs across multiple forms including masu (polite), te, and potential forms.
 
 ## Installation
 
