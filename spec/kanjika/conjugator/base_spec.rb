@@ -6,9 +6,13 @@ RSpec.describe Kanjika::Conjugator::Base do
 
   describe "#group" do
     verb_groups = {
+      # Ichidan verbs (一段動詞 - ichidan dōshi)
       ichidan: %w[食べる 見る 起きる 教える],
+      # Godan verbs (五段動詞 - godan dōshi)
       godan: %w[買う 書く 泳ぐ 話す 飲む],
+      # Suru verbs (サ変動詞 - sahen dōshi)
       suru: %w[する 勉強する 愛する 接する],
+      # Irregular verbs (変格動詞 - henkaku dōshi)
       irregular: %w[来る くる だ]
     }
 

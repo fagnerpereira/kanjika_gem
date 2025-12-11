@@ -7,11 +7,14 @@ RSpec.describe Kanjika do
 
   describe ".conjugate" do
     it "conjugates a verb to the specified form" do
+      # 食べる (taberu) -> 食べます (tabemasu)
       expect(Kanjika.conjugate("食べる", :masu)).to eq("食べます")
+      # 書く (kaku) -> 書いて (kaite)
       expect(Kanjika.conjugate("書く", :te)).to eq("書いて")
     end
 
     it "handles negative conjugations" do
+      # 食べる (taberu) -> 食べません (tabemasen)
       expect(Kanjika.conjugate("食べる", :masu, negative: true)).to eq("食べません")
     end
 
@@ -27,11 +30,14 @@ RSpec.describe Kanjika do
 
     describe "#to" do
       it "conjugates the verb to the specified form" do
+        # 食べる (taberu) -> 食べます (tabemasu)
         expect(Kanjika.verb("食べる").to(:masu)).to eq("食べます")
+        # 書く (kaku) -> 書いて (kaite)
         expect(Kanjika.verb("書く").to(:te)).to eq("書いて")
       end
 
       it "handles negative conjugations" do
+        # 食べる (taberu) -> 食べません (tabemasen)
         expect(Kanjika.verb("食べる").to(:masu, negative: true)).to eq("食べません")
       end
     end

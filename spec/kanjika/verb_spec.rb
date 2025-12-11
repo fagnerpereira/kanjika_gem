@@ -4,67 +4,71 @@ require "spec_helper"
 
 RSpec.describe Kanjika::Verb do
   describe "#conjugate" do
+    # Godan verb "書く" (kaku)
     context 'for godan verb "書く"' do
       let(:verb) { Kanjika.verb("書く") }
 
       it "conjugates to masu form" do
-        expect(verb.conjugate(:masu)).to eq("書きます")
+        expect(verb.conjugate(:masu)).to eq("書きます") # kakimasu
       end
 
       it "conjugates to te form" do
-        expect(verb.conjugate(:te)).to eq("書いて")
+        expect(verb.conjugate(:te)).to eq("書いて") # kaite
       end
 
       it "conjugates to potential form" do
-        expect(verb.conjugate(:potential)).to eq("書ける")
+        expect(verb.conjugate(:potential)).to eq("書ける") # kakeru
       end
     end
 
+    # Ichidan verb "食べる" (taberu)
     context 'for ichidan verb "食べる"' do
       let(:verb) { Kanjika.verb("食べる") }
 
       it "conjugates to masu form" do
-        expect(verb.conjugate(:masu)).to eq("食べます")
+        expect(verb.conjugate(:masu)).to eq("食べます") # tabemasu
       end
 
       it "conjugates to te form" do
-        expect(verb.conjugate(:te)).to eq("食べて")
+        expect(verb.conjugate(:te)).to eq("食べて") # tabete
       end
 
       it "conjugates to potential form" do
-        expect(verb.conjugate(:potential)).to eq("食べられる")
+        expect(verb.conjugate(:potential)).to eq("食べられる") # taberareru
       end
     end
 
+    # Irregular verb "する" (suru)
     context 'for irregular verb "する"' do
       let(:verb) { Kanjika.verb("する") }
 
       it "conjugates to masu form" do
-        expect(verb.conjugate(:masu)).to eq("します")
+        expect(verb.conjugate(:masu)).to eq("します") # shimasu
       end
 
       it "conjugates to te form" do
-        expect(verb.conjugate(:te)).to eq("して")
+        expect(verb.conjugate(:te)).to eq("して") # shite
       end
 
       it "conjugates to potential form" do
-        expect(verb.conjugate(:potential)).to eq("できる")
+        expect(verb.conjugate(:potential)).to eq("できる") # dekiru
       end
     end
 
+    # Irregular verb "来る" (kuru)
     context 'for irregular verb "来る"' do
       let(:verb) { Kanjika.verb("来る") }
 
       it "conjugates to masu form" do
-        expect(verb.conjugate(:masu)).to eq("来ます")
+        expect(verb.conjugate(:masu)).to eq("来ます") # kimasu
       end
 
       it "conjugates to te form" do
-        expect(verb.conjugate(:te)).to eq("来て")
+        expect(verb.conjugate(:te)).to eq("来て") # kite
       end
 
       it "conjugates to potential form" do
-        expect(verb.conjugate(:potential)).to eq("来られる")
+        expect(verb.conjugate(:potential)).to eq("来られる") # korareru
       end
     end
   end
