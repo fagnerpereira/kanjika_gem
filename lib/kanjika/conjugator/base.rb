@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 module Kanjika
   module Conjugator
     class Base
-      U_ENDINGS = "うくぐすずつづぬふぶむる"
-      A_ENDINGS = "わかがさざただなはばまら"
-      E_ENDINGS = "えけげせぜてでねへべめれ"
-      I_ENDINGS = "いきぎしじちぢにひびみり"
-      O_ENDINGS = "おこごそぞとどのほぼもろ"
+      U_ENDINGS = "うくぐすつぬふぶむる"
+      A_ENDINGS = "わかがさたなはまら"
+      E_ENDINGS = "えけげせてねへべめれ"
+      I_ENDINGS = "いきぎしちにひびみり"
 
       # https://conjugator.reverso.net/conjugation-rules-model-japanese-info.html
       ICHIDAN_TYPE = :ichidan
@@ -37,6 +38,8 @@ module Kanjika
       end
 
       def stem
+        return if verb.to_s.empty?
+
         return verb.chop if ichidan?
         return verb.tr(U_ENDINGS, I_ENDINGS) if godan?
         return verb.gsub("する", "し") if suru?
@@ -46,12 +49,12 @@ module Kanjika
       def present
         {
           positive: {
-            plain: process.lemma,
-            polite: stem + "ます"
+            plain: process.first.lemma,
+            polite: "#{stem}ます"
           },
           negative: {
             plain: negative_plain_form,
-            polite: stem + "ません"
+            polite: "#{stem}ません"
           }
         }
       end
@@ -59,10 +62,10 @@ module Kanjika
       def negative_plain_form
         if godan?
           # For godan verbs, transform u->a for negative
-          verb[0..-2] + verb[-1].tr(U_ENDINGS, A_ENDINGS) + "ない"
+          verb.chop + verb[-1].tr(U_ENDINGS, A_ENDINGS) + "ない"
         else
           # For ichidan, suru, and irregular, use stem + ない
-          stem + "ない"
+          "#{stem}ない"
         end
       end
 
@@ -79,7 +82,7 @@ module Kanjika
       end
 
       def suru?
-        inflection_types.include?(SURU)
+        inflection_types.include?(SURU) || inflection_types.include?(NOUN_VERB)
       end
 
       def irregular?
@@ -91,13 +94,14 @@ module Kanjika
       end
 
       def inflection_types
-        @inflection_types ||= process.tokens.map do |tokens|
-          tokens[:inflection_type].split("・")
-        end.flatten
+        process.flat_map do |word|
+          word.tokens.map { |token| token[:inflection_type] }
+        end.compact.flat_map { |type| type.split("・") }.uniq
       end
 
       def process
-        @process ||= Ve.in(:ja).words(verb).first
+        return [] if verb.to_s.empty?
+        @process ||= Ve.in(:ja).words(verb)
       end
     end
   end

@@ -1,20 +1,25 @@
-require_relative "kanjika/version"
-require_relative "kanjika/conjugator/base"
-require_relative "kanjika/conjugator/concerns/verb_type_detector"
-require_relative "kanjika/conjugator/concerns/token_conjugator"
-require_relative "kanjika/conjugator/masu"
-require_relative "kanjika/conjugator/te"
-require_relative "kanjika/conjugator/ta"
-require_relative "kanjika/conjugator/causative"
-require_relative "kanjika/conjugator/passive"
-require_relative "kanjika/conjugator/potential"
-require_relative "kanjika/conjugator/volitional"
-require_relative "kanjika/verb"
+# frozen_string_literal: true
+
+require "active_support/core_ext/string/inflections"
 require "ve"
 require "mojinizer"
+require_relative "kanjika/version"
+require_relative "kanjika/verb"
+require_relative "kanjika/conjugator/base"
+require_relative "kanjika/conjugator/masu"
+require_relative "kanjika/conjugator/te"
+require_relative "kanjika/conjugator/potential"
 
 module Kanjika
   class Error < StandardError; end
-  class InvalidVerbError < Error; end
-  class ConjugationError < Error; end
+
+  def self.verb(verb)
+    Verb.new(verb)
+  end
+
+  def self.conjugate(verb, form, negative: false)
+    Verb.new(verb).conjugate(form, negative: negative)
+  rescue NameError
+    raise "Unknown form #{form}"
+  end
 end
