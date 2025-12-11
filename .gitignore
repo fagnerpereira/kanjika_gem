@@ -6,3 +6,4 @@ pkg
 *.gem
 .bundle/
 .genkit/traces_idx/genkit.metadata
+.idea/
