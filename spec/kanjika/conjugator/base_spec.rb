@@ -4,7 +4,7 @@ require "spec_helper"
 RSpec.describe Kanjika::Conjugator::Base do
   subject(:conjugator) { described_class.new(verb) }
 
-  describe '#group' do
+  describe "#group" do
     verb_groups = {
       # Ichidan verbs (一段動詞 - ichidan dōshi)
       ichidan: %w[食べる 見る 起きる 教える],

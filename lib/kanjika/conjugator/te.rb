@@ -17,10 +17,7 @@ module Kanjika
 
       def conjugate(negative: false)
         return negative_te_form if negative
-<<<<<<< HEAD
         # Special case for 行く (iku) -> 行って (itte)
-=======
->>>>>>> a330d3b5e42c8b4c6230cead76da00e04efcf328
         return "行って" if verb == "行く" || verb == "いく"
 
         case group
