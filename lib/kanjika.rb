@@ -17,4 +17,8 @@ module Kanjika
   def self.verb(verb)
     Verb.new(verb)
   end
+
+  def self.conjugate(verb, type, negative: false)
+    Verb.new(verb).conjugate(type, negative: negative)
+  end
 end

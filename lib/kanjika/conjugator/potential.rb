@@ -10,16 +10,16 @@ module Kanjika
         when :godan
           godan_potential
         when :suru
-          'できる'
+          verb.end_with?("する") ? verb.sub(/する$/, "できる") : "できる"
         when :irregular
-          '来られる'
+          "来られる"
         end
       end
 
       private
 
       def godan_potential
-        verb.tr(U_ENDINGS, E_ENDINGS) + 'る'
+        verb.tr(U_ENDINGS, E_ENDINGS) + "る"
       end
     end
   end
