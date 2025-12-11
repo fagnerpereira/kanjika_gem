@@ -42,11 +42,12 @@ Kanjika provides two main ways to conjugate verbs:
 require 'kanjika'
 
 # Conjugate directly
-Kanjika.conjugate("食べる", :masu)  # => "食べます"
-Kanjika.conjugate("書く", :te)      # => "書いて"
+Kanjika.conjugate("食べる", :masu)  # => "食べます" (tabemasu - eat/will eat)
+Kanjika.conjugate("書く", :te)      # => "書いて" (kaite - write and...)
 
 # Negative forms
-Kanjika.conjugate("食べる", :masu, negative: true)  # => "食べません"
+Kanjika.conjugate("食べる", :masu, negative: true)  # => "食べません" (tabemasen - don't eat)
+Kanjika.conjugate("食べる", :te, negative: true)    # => "食べなくて" (tabenakute - not eating/without eating)
 ```
 
 #### Using the Verb object
@@ -54,19 +55,19 @@ Kanjika.conjugate("食べる", :masu, negative: true)  # => "食べません"
 ```ruby
 verb = Kanjika.verb('書く')
 
-# Get the masu form
-verb.conjugate(:masu)      # => "書きます"
+# Get the masu form (polite present/future)
+verb.conjugate(:masu)      # => "書きます" (kakimasu - write/will write)
 verb.to(:masu)             # => "書きます" (alias)
 
-# Get the te form
-verb.conjugate(:te)        # => "書いて"
+# Get the te form (connective)
+verb.conjugate(:te)        # => "書いて" (kaite - write and...)
 
-# Get the potential form
-verb.conjugate(:potential) # => "書ける"
+# Get the potential form (can do)
+verb.conjugate(:potential) # => "書ける" (kakeru - can write)
 
 # Negative forms
-verb.conjugate(:masu, negative: true)  # => "書きません"
-verb.conjugate(:te, negative: true)    # => "書かなくて"
+verb.conjugate(:masu, negative: true)  # => "書きません" (kakimasen - don't write)
+verb.conjugate(:te, negative: true)    # => "書かなくて" (kakanakute - not writing/without writing)
 ```
 
 ### Supported Conjugation Forms
@@ -74,33 +75,33 @@ verb.conjugate(:te, negative: true)    # => "書かなくて"
 #### Masu Form (Polite Present)
 
 ```ruby
-Kanjika.conjugate("食べる", :masu)    # => "食べます"
-Kanjika.conjugate("書く", :masu)      # => "書きます"
-Kanjika.conjugate("する", :masu)      # => "します"
+Kanjika.conjugate("食べる", :masu)    # => "食べます" (tabemasu - eat/will eat)
+Kanjika.conjugate("書く", :masu)      # => "書きます" (kakimasu - write/will write)
+Kanjika.conjugate("する", :masu)      # => "します" (shimasu - do/will do)
 
 # Negative
-Kanjika.conjugate("食べる", :masu, negative: true)  # => "食べません"
+Kanjika.conjugate("食べる", :masu, negative: true)  # => "食べません" (tabemasen - don't eat)
 ```
 
 #### Te Form (Conjunctive)
 
 ```ruby
-Kanjika.conjugate("食べる", :te)      # => "食べて"
-Kanjika.conjugate("書く", :te)        # => "書いて"
-Kanjika.conjugate("飲む", :te)        # => "飲んで"
-Kanjika.conjugate("買う", :te)        # => "買って"
+Kanjika.conjugate("食べる", :te)      # => "食べて" (tabete - eat and...)
+Kanjika.conjugate("書く", :te)        # => "書いて" (kaite - write and...)
+Kanjika.conjugate("飲む", :te)        # => "飲んで" (nonde - drink and...)
+Kanjika.conjugate("買う", :te)        # => "買って" (katte - buy and...)
 
 # Negative
-Kanjika.conjugate("食べる", :te, negative: true)    # => "食べなくて"
+Kanjika.conjugate("食べる", :te, negative: true)    # => "食べなくて" (tabenakute - not eating/without eating)
 ```
 
 #### Potential Form (Can do)
 
 ```ruby
-Kanjika.conjugate("食べる", :potential)  # => "食べられる"
-Kanjika.conjugate("書く", :potential)    # => "書ける"
-Kanjika.conjugate("飲む", :potential)    # => "飲める"
-Kanjika.conjugate("する", :potential)    # => "できる"
+Kanjika.conjugate("食べる", :potential)  # => "食べられる" (taberareru - can eat)
+Kanjika.conjugate("書く", :potential)    # => "書ける" (kakeru - can write)
+Kanjika.conjugate("飲む", :potential)    # => "飲める" (nomeru - can drink)
+Kanjika.conjugate("する", :potential)    # => "できる" (dekiru - can do)
 ```
 
 ### Verb Types
@@ -136,21 +137,21 @@ Only two main irregular verbs:
 ```ruby
 # 食べる (taberu - to eat) - Ichidan
 verb = "食べる"
-Kanjika.conjugate(verb, :masu)       # => "食べます"
-Kanjika.conjugate(verb, :te)         # => "食べて"
-Kanjika.conjugate(verb, :potential)  # => "食べられる"
+Kanjika.conjugate(verb, :masu)       # => "食べます" (tabemasu - eat/will eat)
+Kanjika.conjugate(verb, :te)         # => "食べて" (tabete - eat and...)
+Kanjika.conjugate(verb, :potential)  # => "食べられる" (taberareru - can eat)
 
 # 書く (kaku - to write) - Godan
 verb = "書く"
-Kanjika.conjugate(verb, :masu)       # => "書きます"
-Kanjika.conjugate(verb, :te)         # => "書いて"
-Kanjika.conjugate(verb, :potential)  # => "書ける"
+Kanjika.conjugate(verb, :masu)       # => "書きます" (kakimasu - write/will write)
+Kanjika.conjugate(verb, :te)         # => "書いて" (kaite - write and...)
+Kanjika.conjugate(verb, :potential)  # => "書ける" (kakeru - can write)
 
 # する (suru - to do) - Irregular
 verb = "する"
-Kanjika.conjugate(verb, :masu)       # => "します"
-Kanjika.conjugate(verb, :te)         # => "して"
-Kanjika.conjugate(verb, :potential)  # => "できる"
+Kanjika.conjugate(verb, :masu)       # => "します" (shimasu - do/will do)
+Kanjika.conjugate(verb, :te)         # => "して" (shite - do and...)
+Kanjika.conjugate(verb, :potential)  # => "できる" (dekiru - can do)
 ```
 
 ## Development
