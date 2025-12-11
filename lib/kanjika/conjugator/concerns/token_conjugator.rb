@@ -27,9 +27,9 @@ module Kanjika
           case verb_type
           when Base::ICHIDAN_TYPE
             conjugate_ichidan
-          when Base.GODAN_TYPE
+          when Base::GODAN_TYPE
             conjugate_godan
-          when Base.IRREGULAR_TYPE
+          when Base::IRREGULAR_TYPE
             conjugate_irregular
           else
             raise ArgumentError, "Unknown or nil verb_type: #{verb_type.inspect}"
