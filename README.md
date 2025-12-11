@@ -132,6 +132,22 @@ Only two main irregular verbs:
 - する (suru) - to do
 - 来る (kuru) - to come
 
+## Pronunciation Guide
+
+To help beginners, we're adding pronunciation guides for the kanji used in this documentation and in the code.
+
+- **食べる (taberu):** to eat
+- **書く (kaku):** to write
+- **飲む (nomu):** to drink
+- **買う (kau):** to buy
+- **話す (hanasu):** to speak
+- **見る (miru):** to see
+- **起きる (okiru):** to wake up
+- **する (suru):** to do
+- **来る (kuru):** to come
+- **五段 (godan):** five-step (verb type)
+- **一段 (ichidan):** one-step (verb type)
+
 ### Examples
 
 ```ruby
@@ -183,6 +199,20 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/fagner
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## Roadmap
+
+Here are some of the features we're planning to add to Kanjika:
+
+- **More Conjugation Forms:** We'll be adding support for more conjugation forms, such as:
+  - Passive (e.g., 食べられる - taberareru)
+  - Causative (e.g., 食べさせる - tabesaseru)
+  - Volitional (e.g., 食べよう - tabeyou)
+  - Imperative (e.g., 食べろ - tabero)
+- **Adjective Conjugation:** Support for i-adjectives and na-adjectives.
+- **Verb Transitivity:** The ability to identify if a verb is transitive or intransitive.
+- **Kanji Pronunciation:** We will add comments to the code to help beginners with the pronunciation of unknown kanji.
+- **Web Interface:** A simple web interface to demonstrate the gem's capabilities.
 
 ## License
 

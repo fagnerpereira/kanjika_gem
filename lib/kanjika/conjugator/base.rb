@@ -3,24 +3,31 @@
 module Kanjika
   module Conjugator
     class Base
-      U_ENDINGS = "うくぐすつぬふぶむる"
-      A_ENDINGS = "わかがさたなはまら"
-      E_ENDINGS = "えけげせてねへべめれ"
-      I_ENDINGS = "いきぎしちにひびみり"
+      # Japanese verb endings
+      U_ENDINGS = "うくぐすつぬふぶむる" # u, ku, gu, su, tsu, nu, fu, bu, mu, ru
+      A_ENDINGS = "わかがさたなはまら" # wa, ka, ga, sa, ta, na, ha, ma, ra
+      E_ENDINGS = "えけげせてねへべめれ" # e, ke, ge, se, te, ne, he, be, me, re
+      I_ENDINGS = "いきぎしちにひびみり" # i, ki, gi, shi, chi, ni, hi, bi, mi, ri
 
       # https://conjugator.reverso.net/conjugation-rules-model-japanese-info.html
       ICHIDAN_TYPE = :ichidan
       GODAN_TYPE = :godan
       IRREGULAR_TYPE = :irregular
 
+      # Godan (ごだん) - five-step verb
       GODAN = "五段"
+      # Ichidan (いちだん) - one-step verb
       ICHIDAN = "一段"
+      # Suru (する) verb - irregular verb
       SURU = "サ変"
+      # Kuru (くる) verb - irregular verb
       KURU = "カ変"
+      # Noun verb (サ変接続) - noun that can be used as a suru verb
       NOUN_VERB = "サ変接続"
 
       IRREGULARS_STEM = {
-        "来る" => "来",
+        # Kuru (くる) -> Ki (き)
+        "来る" => "来", # kuru -> ki
         "くる" => "き"
       }
 
