@@ -47,6 +47,7 @@ Kanjika.conjugate("書く", :te)      # => "書いて"
 
 # Negative forms
 Kanjika.conjugate("食べる", :masu, negative: true)  # => "食べません"
+Kanjika.conjugate("食べる", :te, negative: true)    # => "食べなくて"
 ```
 
 #### Using the Verb object
