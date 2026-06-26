@@ -7,21 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- CODE_OF_CONDUCT.md with Contributor Covenant 2.0
+- CONTRIBUTING.md with detailed contribution guidelines
+- GitHub issue templates for bug reports and feature requests
+- Pull request template for standardized contributions
+- Enhanced gemspec metadata with source code and bug tracker URIs
+- Examples directory with working conjugation examples
+- Comprehensive README with usage examples
+- MIT-LICENSE file
+- GitHub Actions CI workflow
+- Features section in README highlighting key capabilities
+- Quick Start section in README
+- Project Status section in README with complete feature checklist
+
 ### Fixed
 - Method signature mismatch causing test failures
 - Missing constants in Masu and Te conjugators
 - Conjugate method signatures in causative, passive, potential, and volitional conjugators now accept negative parameter
 - Examples/conjugate.rb now uses require_relative for local development
 
-### Added
-- Comprehensive README with usage examples
-- MIT-LICENSE file
-- GitHub Actions CI workflow
-- Examples directory with working conjugation examples
-- Features section in README highlighting key capabilities
-- Quick Start section in README
-- Project Status section in README with complete feature checklist
-
 ### Improved
 - README documentation structure and clarity
 - CHANGELOG format following Keep a Changelog standard
+- Project organization and contribution workflow
