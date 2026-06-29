@@ -1,2 +1,3 @@
 ---
 BUNDLE_CONSOLE: "pry"
+BUNDLE_PATH: "/home/jules/bundle"
