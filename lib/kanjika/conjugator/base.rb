@@ -10,9 +10,6 @@ module Kanjika
       I_ENDINGS = "いきぎしちにひびみり" # i, ki, gi, shi, chi, ni, hi, bi, mi, ri
 
       # https://conjugator.reverso.net/conjugation-rules-model-japanese-info.html
-      ICHIDAN_TYPE = :ichidan
-      GODAN_TYPE = :godan
-      IRREGULAR_TYPE = :irregular
 
       # Godan (ごだん) - five-step verb
       GODAN = "五段"

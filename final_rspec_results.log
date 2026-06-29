@@ -1,0 +1,1177 @@
+
+Kanjika::Conjugator::Base
+  #group
+    for ichidan verbs
+      identifies '食べる' as ichidan (FAILED - 1)
+      identifies '見る' as ichidan (FAILED - 2)
+      identifies '起きる' as ichidan (FAILED - 3)
+      identifies '教える' as ichidan (FAILED - 4)
+    for godan verbs
+      identifies '買う' as godan (FAILED - 5)
+      identifies '書く' as godan (FAILED - 6)
+      identifies '泳ぐ' as godan (FAILED - 7)
+      identifies '話す' as godan (FAILED - 8)
+      identifies '飲む' as godan (FAILED - 9)
+    for suru verbs
+      identifies 'する' as suru (FAILED - 10)
+      identifies '勉強する' as suru (FAILED - 11)
+      identifies '愛する' as suru (FAILED - 12)
+      identifies '接する' as suru (FAILED - 13)
+    for irregular verbs
+      identifies '来る' as irregular (FAILED - 14)
+      identifies 'くる' as irregular (FAILED - 15)
+      identifies 'だ' as irregular (FAILED - 16)
+  #stem
+    finds the stem of '食べる' to be '食べ' (FAILED - 17)
+    finds the stem of '見る' to be '見' (FAILED - 18)
+    finds the stem of '書く' to be '書き' (FAILED - 19)
+    finds the stem of '泳ぐ' to be '泳ぎ' (FAILED - 20)
+    finds the stem of '飲む' to be '飲み' (FAILED - 21)
+    finds the stem of '買う' to be '買い' (FAILED - 22)
+    finds the stem of 'する' to be 'し' (FAILED - 23)
+    finds the stem of '勉強する' to be '勉強し' (FAILED - 24)
+    finds the stem of '来る' to be '来' (FAILED - 25)
+    finds the stem of 'くる' to be 'き' (FAILED - 26)
+  #present
+    for an ichidan verb
+      returns a hash with all present tense forms (FAILED - 27)
+    for a godan verb
+      returns a hash with all present tense forms (FAILED - 28)
+
+Kanjika::Conjugator::Masu
+  #conjugate
+    for godan verb "書く"
+      example at ./spec/kanjika/conjugator/masu_spec.rb:12 (FAILED - 29)
+      example at ./spec/kanjika/conjugator/masu_spec.rb:13 (FAILED - 30)
+    for ichidan verb "食べる"
+      example at ./spec/kanjika/conjugator/masu_spec.rb:19 (FAILED - 31)
+      example at ./spec/kanjika/conjugator/masu_spec.rb:20 (FAILED - 32)
+    for irregular verb "する"
+      example at ./spec/kanjika/conjugator/masu_spec.rb:26 (FAILED - 33)
+      example at ./spec/kanjika/conjugator/masu_spec.rb:27 (FAILED - 34)
+    for irregular verb "来る"
+      example at ./spec/kanjika/conjugator/masu_spec.rb:33 (FAILED - 35)
+      example at ./spec/kanjika/conjugator/masu_spec.rb:34 (FAILED - 36)
+
+Kanjika::Conjugator::Potential
+  #conjugate
+    for godan verb "書く"
+      example at ./spec/kanjika/conjugator/potential_spec.rb:12 (FAILED - 37)
+    for ichidan verb "食べる"
+      example at ./spec/kanjika/conjugator/potential_spec.rb:18 (FAILED - 38)
+    for irregular verb "する"
+      example at ./spec/kanjika/conjugator/potential_spec.rb:24 (FAILED - 39)
+    for irregular verb "来る"
+      example at ./spec/kanjika/conjugator/potential_spec.rb:30 (FAILED - 40)
+
+Kanjika::Conjugator::Te
+  #conjugate
+    for godan verb "書く"
+      example at ./spec/kanjika/conjugator/te_spec.rb:12 (FAILED - 41)
+      example at ./spec/kanjika/conjugator/te_spec.rb:13 (FAILED - 42)
+    for special godan verb "行く"
+      is expected to eq "行って"
+      example at ./spec/kanjika/conjugator/te_spec.rb:20 (FAILED - 43)
+    for ichidan verb "食べる"
+      example at ./spec/kanjika/conjugator/te_spec.rb:26 (FAILED - 44)
+      example at ./spec/kanjika/conjugator/te_spec.rb:27 (FAILED - 45)
+    for irregular verb "する"
+      example at ./spec/kanjika/conjugator/te_spec.rb:33 (FAILED - 46)
+      example at ./spec/kanjika/conjugator/te_spec.rb:34 (FAILED - 47)
+    for irregular verb "来る"
+      example at ./spec/kanjika/conjugator/te_spec.rb:40 (FAILED - 48)
+      example at ./spec/kanjika/conjugator/te_spec.rb:41 (FAILED - 49)
+
+Conjugation validation
+  for godan verbs
+    conjugates '飲む' (nomu) correctly (FAILED - 50)
+    conjugates '呼ぶ' (yobu) correctly (FAILED - 51)
+    conjugates '死ぬ' (shinu) correctly (FAILED - 52)
+  for ichidan verbs
+    conjugates '見る' (miru) correctly (FAILED - 53)
+    conjugates '起きる' (okiru) correctly (FAILED - 54)
+  for irregular verbs
+    conjugates '勉強する' (benkyou suru) correctly (FAILED - 55)
+
+Kanjika::Verb
+  #conjugate
+    for godan verb "書く"
+      conjugates to masu form (FAILED - 56)
+      conjugates to te form (FAILED - 57)
+      conjugates to potential form (FAILED - 58)
+    for ichidan verb "食べる"
+      conjugates to masu form (FAILED - 59)
+      conjugates to te form (FAILED - 60)
+      conjugates to potential form (FAILED - 61)
+    for irregular verb "する"
+      conjugates to masu form (FAILED - 62)
+      conjugates to te form (FAILED - 63)
+      conjugates to potential form (FAILED - 64)
+    for irregular verb "来る"
+      conjugates to masu form (FAILED - 65)
+      conjugates to te form (FAILED - 66)
+      conjugates to potential form (FAILED - 67)
+
+Kanjika
+  has a version number
+  .conjugate
+    conjugates a verb to the specified form (FAILED - 68)
+    handles negative conjugations (FAILED - 69)
+    raises an error for unknown forms
+  .verb
+    returns a Verb object
+    #to
+      conjugates the verb to the specified form (FAILED - 70)
+      handles negative conjugations (FAILED - 71)
+
+Failures:
+
+  1) Kanjika::Conjugator::Base#group for ichidan verbs identifies '食べる' as ichidan
+     Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+     NoMethodError:
+       private method `puts' called for nil:NilClass
+     # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+     # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+     # ./lib/kanjika/conjugator/base.rb:108:in `process'
+     # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+     # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+     # ./lib/kanjika/conjugator/base.rb:38:in `group'
+     # ./spec/kanjika/conjugator/base_spec.rb:23:in `block (6 levels) in <top (required)>'
+
+  2) Kanjika::Conjugator::Base#group for ichidan verbs identifies '見る' as ichidan
+     Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+     NoMethodError:
+       private method `puts' called for nil:NilClass
+     # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+     # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+     # ./lib/kanjika/conjugator/base.rb:108:in `process'
+     # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+     # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+     # ./lib/kanjika/conjugator/base.rb:38:in `group'
+     # ./spec/kanjika/conjugator/base_spec.rb:23:in `block (6 levels) in <top (required)>'
+
+  3) Kanjika::Conjugator::Base#group for ichidan verbs identifies '起きる' as ichidan
+     Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+     NoMethodError:
+       private method `puts' called for nil:NilClass
+     # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+     # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+     # ./lib/kanjika/conjugator/base.rb:108:in `process'
+     # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+     # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+     # ./lib/kanjika/conjugator/base.rb:38:in `group'
+     # ./spec/kanjika/conjugator/base_spec.rb:23:in `block (6 levels) in <top (required)>'
+
+  4) Kanjika::Conjugator::Base#group for ichidan verbs identifies '教える' as ichidan
+     Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+     NoMethodError:
+       private method `puts' called for nil:NilClass
+     # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+     # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+     # ./lib/kanjika/conjugator/base.rb:108:in `process'
+     # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+     # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+     # ./lib/kanjika/conjugator/base.rb:38:in `group'
+     # ./spec/kanjika/conjugator/base_spec.rb:23:in `block (6 levels) in <top (required)>'
+
+  5) Kanjika::Conjugator::Base#group for godan verbs identifies '買う' as godan
+     Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+     NoMethodError:
+       private method `puts' called for nil:NilClass
+     # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+     # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+     # ./lib/kanjika/conjugator/base.rb:108:in `process'
+     # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+     # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+     # ./lib/kanjika/conjugator/base.rb:38:in `group'
+     # ./spec/kanjika/conjugator/base_spec.rb:23:in `block (6 levels) in <top (required)>'
+
+  6) Kanjika::Conjugator::Base#group for godan verbs identifies '書く' as godan
+     Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+     NoMethodError:
+       private method `puts' called for nil:NilClass
+     # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+     # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+     # ./lib/kanjika/conjugator/base.rb:108:in `process'
+     # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+     # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+     # ./lib/kanjika/conjugator/base.rb:38:in `group'
+     # ./spec/kanjika/conjugator/base_spec.rb:23:in `block (6 levels) in <top (required)>'
+
+  7) Kanjika::Conjugator::Base#group for godan verbs identifies '泳ぐ' as godan
+     Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+     NoMethodError:
+       private method `puts' called for nil:NilClass
+     # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+     # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+     # ./lib/kanjika/conjugator/base.rb:108:in `process'
+     # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+     # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+     # ./lib/kanjika/conjugator/base.rb:38:in `group'
+     # ./spec/kanjika/conjugator/base_spec.rb:23:in `block (6 levels) in <top (required)>'
+
+  8) Kanjika::Conjugator::Base#group for godan verbs identifies '話す' as godan
+     Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+     NoMethodError:
+       private method `puts' called for nil:NilClass
+     # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+     # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+     # ./lib/kanjika/conjugator/base.rb:108:in `process'
+     # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+     # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+     # ./lib/kanjika/conjugator/base.rb:38:in `group'
+     # ./spec/kanjika/conjugator/base_spec.rb:23:in `block (6 levels) in <top (required)>'
+
+  9) Kanjika::Conjugator::Base#group for godan verbs identifies '飲む' as godan
+     Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+     NoMethodError:
+       private method `puts' called for nil:NilClass
+     # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+     # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+     # ./lib/kanjika/conjugator/base.rb:108:in `process'
+     # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+     # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+     # ./lib/kanjika/conjugator/base.rb:38:in `group'
+     # ./spec/kanjika/conjugator/base_spec.rb:23:in `block (6 levels) in <top (required)>'
+
+  10) Kanjika::Conjugator::Base#group for suru verbs identifies 'する' as suru
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:38:in `group'
+      # ./spec/kanjika/conjugator/base_spec.rb:23:in `block (6 levels) in <top (required)>'
+
+  11) Kanjika::Conjugator::Base#group for suru verbs identifies '勉強する' as suru
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:38:in `group'
+      # ./spec/kanjika/conjugator/base_spec.rb:23:in `block (6 levels) in <top (required)>'
+
+  12) Kanjika::Conjugator::Base#group for suru verbs identifies '愛する' as suru
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:38:in `group'
+      # ./spec/kanjika/conjugator/base_spec.rb:23:in `block (6 levels) in <top (required)>'
+
+  13) Kanjika::Conjugator::Base#group for suru verbs identifies '接する' as suru
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:38:in `group'
+      # ./spec/kanjika/conjugator/base_spec.rb:23:in `block (6 levels) in <top (required)>'
+
+  14) Kanjika::Conjugator::Base#group for irregular verbs identifies '来る' as irregular
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:38:in `group'
+      # ./spec/kanjika/conjugator/base_spec.rb:23:in `block (6 levels) in <top (required)>'
+
+  15) Kanjika::Conjugator::Base#group for irregular verbs identifies 'くる' as irregular
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:38:in `group'
+      # ./spec/kanjika/conjugator/base_spec.rb:23:in `block (6 levels) in <top (required)>'
+
+  16) Kanjika::Conjugator::Base#group for irregular verbs identifies 'だ' as irregular
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:38:in `group'
+      # ./spec/kanjika/conjugator/base_spec.rb:23:in `block (6 levels) in <top (required)>'
+
+  17) Kanjika::Conjugator::Base#stem finds the stem of '食べる' to be '食べ'
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:47:in `stem'
+      # ./spec/kanjika/conjugator/base_spec.rb:50:in `block (4 levels) in <top (required)>'
+
+  18) Kanjika::Conjugator::Base#stem finds the stem of '見る' to be '見'
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:47:in `stem'
+      # ./spec/kanjika/conjugator/base_spec.rb:50:in `block (4 levels) in <top (required)>'
+
+  19) Kanjika::Conjugator::Base#stem finds the stem of '書く' to be '書き'
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:47:in `stem'
+      # ./spec/kanjika/conjugator/base_spec.rb:50:in `block (4 levels) in <top (required)>'
+
+  20) Kanjika::Conjugator::Base#stem finds the stem of '泳ぐ' to be '泳ぎ'
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:47:in `stem'
+      # ./spec/kanjika/conjugator/base_spec.rb:50:in `block (4 levels) in <top (required)>'
+
+  21) Kanjika::Conjugator::Base#stem finds the stem of '飲む' to be '飲み'
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:47:in `stem'
+      # ./spec/kanjika/conjugator/base_spec.rb:50:in `block (4 levels) in <top (required)>'
+
+  22) Kanjika::Conjugator::Base#stem finds the stem of '買う' to be '買い'
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:47:in `stem'
+      # ./spec/kanjika/conjugator/base_spec.rb:50:in `block (4 levels) in <top (required)>'
+
+  23) Kanjika::Conjugator::Base#stem finds the stem of 'する' to be 'し'
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:47:in `stem'
+      # ./spec/kanjika/conjugator/base_spec.rb:50:in `block (4 levels) in <top (required)>'
+
+  24) Kanjika::Conjugator::Base#stem finds the stem of '勉強する' to be '勉強し'
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:47:in `stem'
+      # ./spec/kanjika/conjugator/base_spec.rb:50:in `block (4 levels) in <top (required)>'
+
+  25) Kanjika::Conjugator::Base#stem finds the stem of '来る' to be '来'
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:47:in `stem'
+      # ./spec/kanjika/conjugator/base_spec.rb:50:in `block (4 levels) in <top (required)>'
+
+  26) Kanjika::Conjugator::Base#stem finds the stem of 'くる' to be 'き'
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:47:in `stem'
+      # ./spec/kanjika/conjugator/base_spec.rb:50:in `block (4 levels) in <top (required)>'
+
+  27) Kanjika::Conjugator::Base#present for an ichidan verb returns a hash with all present tense forms
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:56:in `present'
+      # ./spec/kanjika/conjugator/base_spec.rb:66:in `block (4 levels) in <top (required)>'
+
+  28) Kanjika::Conjugator::Base#present for a godan verb returns a hash with all present tense forms
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:56:in `present'
+      # ./spec/kanjika/conjugator/base_spec.rb:80:in `block (4 levels) in <top (required)>'
+
+  29) Kanjika::Conjugator::Masu#conjugate for godan verb "書く"
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:47:in `stem'
+      # ./lib/kanjika/conjugator/masu.rb:7:in `conjugate'
+      # ./spec/kanjika/conjugator/masu_spec.rb:12:in `block (4 levels) in <top (required)>'
+
+  30) Kanjika::Conjugator::Masu#conjugate for godan verb "書く"
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:47:in `stem'
+      # ./lib/kanjika/conjugator/masu.rb:7:in `conjugate'
+      # ./spec/kanjika/conjugator/masu_spec.rb:13:in `block (4 levels) in <top (required)>'
+
+  31) Kanjika::Conjugator::Masu#conjugate for ichidan verb "食べる"
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:47:in `stem'
+      # ./lib/kanjika/conjugator/masu.rb:7:in `conjugate'
+      # ./spec/kanjika/conjugator/masu_spec.rb:19:in `block (4 levels) in <top (required)>'
+
+  32) Kanjika::Conjugator::Masu#conjugate for ichidan verb "食べる"
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:47:in `stem'
+      # ./lib/kanjika/conjugator/masu.rb:7:in `conjugate'
+      # ./spec/kanjika/conjugator/masu_spec.rb:20:in `block (4 levels) in <top (required)>'
+
+  33) Kanjika::Conjugator::Masu#conjugate for irregular verb "する"
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:47:in `stem'
+      # ./lib/kanjika/conjugator/masu.rb:7:in `conjugate'
+      # ./spec/kanjika/conjugator/masu_spec.rb:26:in `block (4 levels) in <top (required)>'
+
+  34) Kanjika::Conjugator::Masu#conjugate for irregular verb "する"
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:47:in `stem'
+      # ./lib/kanjika/conjugator/masu.rb:7:in `conjugate'
+      # ./spec/kanjika/conjugator/masu_spec.rb:27:in `block (4 levels) in <top (required)>'
+
+  35) Kanjika::Conjugator::Masu#conjugate for irregular verb "来る"
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:47:in `stem'
+      # ./lib/kanjika/conjugator/masu.rb:7:in `conjugate'
+      # ./spec/kanjika/conjugator/masu_spec.rb:33:in `block (4 levels) in <top (required)>'
+
+  36) Kanjika::Conjugator::Masu#conjugate for irregular verb "来る"
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:47:in `stem'
+      # ./lib/kanjika/conjugator/masu.rb:7:in `conjugate'
+      # ./spec/kanjika/conjugator/masu_spec.rb:34:in `block (4 levels) in <top (required)>'
+
+  37) Kanjika::Conjugator::Potential#conjugate for godan verb "書く"
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:38:in `group'
+      # ./lib/kanjika/conjugator/potential.rb:7:in `conjugate'
+      # ./spec/kanjika/conjugator/potential_spec.rb:12:in `block (4 levels) in <top (required)>'
+
+  38) Kanjika::Conjugator::Potential#conjugate for ichidan verb "食べる"
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:38:in `group'
+      # ./lib/kanjika/conjugator/potential.rb:7:in `conjugate'
+      # ./spec/kanjika/conjugator/potential_spec.rb:18:in `block (4 levels) in <top (required)>'
+
+  39) Kanjika::Conjugator::Potential#conjugate for irregular verb "する"
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:38:in `group'
+      # ./lib/kanjika/conjugator/potential.rb:7:in `conjugate'
+      # ./spec/kanjika/conjugator/potential_spec.rb:24:in `block (4 levels) in <top (required)>'
+
+  40) Kanjika::Conjugator::Potential#conjugate for irregular verb "来る"
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:38:in `group'
+      # ./lib/kanjika/conjugator/potential.rb:7:in `conjugate'
+      # ./spec/kanjika/conjugator/potential_spec.rb:30:in `block (4 levels) in <top (required)>'
+
+  41) Kanjika::Conjugator::Te#conjugate for godan verb "書く"
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:38:in `group'
+      # ./lib/kanjika/conjugator/te.rb:23:in `conjugate'
+      # ./spec/kanjika/conjugator/te_spec.rb:12:in `block (4 levels) in <top (required)>'
+
+  42) Kanjika::Conjugator::Te#conjugate for godan verb "書く"
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:85:in `godan?'
+      # ./lib/kanjika/conjugator/base.rb:67:in `negative_plain_form'
+      # ./lib/kanjika/conjugator/te.rb:38:in `negative_te_form'
+      # ./lib/kanjika/conjugator/te.rb:19:in `conjugate'
+      # ./spec/kanjika/conjugator/te_spec.rb:13:in `block (4 levels) in <top (required)>'
+
+  43) Kanjika::Conjugator::Te#conjugate for special godan verb "行く"
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:85:in `godan?'
+      # ./lib/kanjika/conjugator/base.rb:67:in `negative_plain_form'
+      # ./lib/kanjika/conjugator/te.rb:38:in `negative_te_form'
+      # ./lib/kanjika/conjugator/te.rb:19:in `conjugate'
+      # ./spec/kanjika/conjugator/te_spec.rb:20:in `block (4 levels) in <top (required)>'
+
+  44) Kanjika::Conjugator::Te#conjugate for ichidan verb "食べる"
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:38:in `group'
+      # ./lib/kanjika/conjugator/te.rb:23:in `conjugate'
+      # ./spec/kanjika/conjugator/te_spec.rb:26:in `block (4 levels) in <top (required)>'
+
+  45) Kanjika::Conjugator::Te#conjugate for ichidan verb "食べる"
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:85:in `godan?'
+      # ./lib/kanjika/conjugator/base.rb:67:in `negative_plain_form'
+      # ./lib/kanjika/conjugator/te.rb:38:in `negative_te_form'
+      # ./lib/kanjika/conjugator/te.rb:19:in `conjugate'
+      # ./spec/kanjika/conjugator/te_spec.rb:27:in `block (4 levels) in <top (required)>'
+
+  46) Kanjika::Conjugator::Te#conjugate for irregular verb "する"
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:38:in `group'
+      # ./lib/kanjika/conjugator/te.rb:23:in `conjugate'
+      # ./spec/kanjika/conjugator/te_spec.rb:33:in `block (4 levels) in <top (required)>'
+
+  47) Kanjika::Conjugator::Te#conjugate for irregular verb "する"
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:85:in `godan?'
+      # ./lib/kanjika/conjugator/base.rb:67:in `negative_plain_form'
+      # ./lib/kanjika/conjugator/te.rb:38:in `negative_te_form'
+      # ./lib/kanjika/conjugator/te.rb:19:in `conjugate'
+      # ./spec/kanjika/conjugator/te_spec.rb:34:in `block (4 levels) in <top (required)>'
+
+  48) Kanjika::Conjugator::Te#conjugate for irregular verb "来る"
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:81:in `ichidan?'
+      # ./lib/kanjika/conjugator/base.rb:38:in `group'
+      # ./lib/kanjika/conjugator/te.rb:23:in `conjugate'
+      # ./spec/kanjika/conjugator/te_spec.rb:40:in `block (4 levels) in <top (required)>'
+
+  49) Kanjika::Conjugator::Te#conjugate for irregular verb "来る"
+      Failure/Error: @process ||= Ve.in(:ja).words(verb)
+
+      NoMethodError:
+        private method `puts' called for nil:NilClass
+      # /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+      # /home/jules/.gem/gems/ve-0.0.4/lib/ve.rb:60:in `method_missing'
+      # ./lib/kanjika/conjugator/base.rb:108:in `process'
+      # ./lib/kanjika/conjugator/base.rb:101:in `inflection_types'
+      # ./lib/kanjika/conjugator/base.rb:85:in `godan?'
+      # ./lib/kanjika/conjugator/base.rb:67:in `negative_plain_form'
+      # ./lib/kanjika/conjugator/te.rb:38:in `negative_te_form'
+      # ./lib/kanjika/conjugator/te.rb:19:in `conjugate'
+      # ./spec/kanjika/conjugator/te_spec.rb:41:in `block (4 levels) in <top (required)>'
+
+  50) Conjugation validation for godan verbs conjugates '飲む' (nomu) correctly
+      Failure/Error: raise "Unknown form #{type}"
+
+      RuntimeError:
+        Unknown form masu
+      # ./lib/kanjika/verb.rb:15:in `rescue in conjugate'
+      # ./lib/kanjika/verb.rb:11:in `conjugate'
+      # ./spec/kanjika/conjugator/validation_spec.rb:11:in `block (3 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   private method `puts' called for nil:NilClass
+      #   /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+
+  51) Conjugation validation for godan verbs conjugates '呼ぶ' (yobu) correctly
+      Failure/Error: raise "Unknown form #{type}"
+
+      RuntimeError:
+        Unknown form masu
+      # ./lib/kanjika/verb.rb:15:in `rescue in conjugate'
+      # ./lib/kanjika/verb.rb:11:in `conjugate'
+      # ./spec/kanjika/conjugator/validation_spec.rb:18:in `block (3 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   private method `puts' called for nil:NilClass
+      #   /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+
+  52) Conjugation validation for godan verbs conjugates '死ぬ' (shinu) correctly
+      Failure/Error: raise "Unknown form #{type}"
+
+      RuntimeError:
+        Unknown form masu
+      # ./lib/kanjika/verb.rb:15:in `rescue in conjugate'
+      # ./lib/kanjika/verb.rb:11:in `conjugate'
+      # ./spec/kanjika/conjugator/validation_spec.rb:25:in `block (3 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   private method `puts' called for nil:NilClass
+      #   /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+
+  53) Conjugation validation for ichidan verbs conjugates '見る' (miru) correctly
+      Failure/Error: raise "Unknown form #{type}"
+
+      RuntimeError:
+        Unknown form masu
+      # ./lib/kanjika/verb.rb:15:in `rescue in conjugate'
+      # ./lib/kanjika/verb.rb:11:in `conjugate'
+      # ./spec/kanjika/conjugator/validation_spec.rb:36:in `block (3 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   private method `puts' called for nil:NilClass
+      #   /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+
+  54) Conjugation validation for ichidan verbs conjugates '起きる' (okiru) correctly
+      Failure/Error: raise "Unknown form #{type}"
+
+      RuntimeError:
+        Unknown form masu
+      # ./lib/kanjika/verb.rb:15:in `rescue in conjugate'
+      # ./lib/kanjika/verb.rb:11:in `conjugate'
+      # ./spec/kanjika/conjugator/validation_spec.rb:43:in `block (3 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   private method `puts' called for nil:NilClass
+      #   /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+
+  55) Conjugation validation for irregular verbs conjugates '勉強する' (benkyou suru) correctly
+      Failure/Error: raise "Unknown form #{type}"
+
+      RuntimeError:
+        Unknown form masu
+      # ./lib/kanjika/verb.rb:15:in `rescue in conjugate'
+      # ./lib/kanjika/verb.rb:11:in `conjugate'
+      # ./spec/kanjika/conjugator/validation_spec.rb:54:in `block (3 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   private method `puts' called for nil:NilClass
+      #   /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+
+  56) Kanjika::Verb#conjugate for godan verb "書く" conjugates to masu form
+      Failure/Error: raise "Unknown form #{type}"
+
+      RuntimeError:
+        Unknown form masu
+      # ./lib/kanjika/verb.rb:15:in `rescue in conjugate'
+      # ./lib/kanjika/verb.rb:11:in `conjugate'
+      # ./spec/kanjika/verb_spec.rb:12:in `block (4 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   private method `puts' called for nil:NilClass
+      #   /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+
+  57) Kanjika::Verb#conjugate for godan verb "書く" conjugates to te form
+      Failure/Error: raise "Unknown form #{type}"
+
+      RuntimeError:
+        Unknown form te
+      # ./lib/kanjika/verb.rb:15:in `rescue in conjugate'
+      # ./lib/kanjika/verb.rb:11:in `conjugate'
+      # ./spec/kanjika/verb_spec.rb:16:in `block (4 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   private method `puts' called for nil:NilClass
+      #   /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+
+  58) Kanjika::Verb#conjugate for godan verb "書く" conjugates to potential form
+      Failure/Error: raise "Unknown form #{type}"
+
+      RuntimeError:
+        Unknown form potential
+      # ./lib/kanjika/verb.rb:15:in `rescue in conjugate'
+      # ./lib/kanjika/verb.rb:11:in `conjugate'
+      # ./spec/kanjika/verb_spec.rb:20:in `block (4 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   private method `puts' called for nil:NilClass
+      #   /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+
+  59) Kanjika::Verb#conjugate for ichidan verb "食べる" conjugates to masu form
+      Failure/Error: raise "Unknown form #{type}"
+
+      RuntimeError:
+        Unknown form masu
+      # ./lib/kanjika/verb.rb:15:in `rescue in conjugate'
+      # ./lib/kanjika/verb.rb:11:in `conjugate'
+      # ./spec/kanjika/verb_spec.rb:29:in `block (4 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   private method `puts' called for nil:NilClass
+      #   /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+
+  60) Kanjika::Verb#conjugate for ichidan verb "食べる" conjugates to te form
+      Failure/Error: raise "Unknown form #{type}"
+
+      RuntimeError:
+        Unknown form te
+      # ./lib/kanjika/verb.rb:15:in `rescue in conjugate'
+      # ./lib/kanjika/verb.rb:11:in `conjugate'
+      # ./spec/kanjika/verb_spec.rb:33:in `block (4 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   private method `puts' called for nil:NilClass
+      #   /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+
+  61) Kanjika::Verb#conjugate for ichidan verb "食べる" conjugates to potential form
+      Failure/Error: raise "Unknown form #{type}"
+
+      RuntimeError:
+        Unknown form potential
+      # ./lib/kanjika/verb.rb:15:in `rescue in conjugate'
+      # ./lib/kanjika/verb.rb:11:in `conjugate'
+      # ./spec/kanjika/verb_spec.rb:37:in `block (4 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   private method `puts' called for nil:NilClass
+      #   /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+
+  62) Kanjika::Verb#conjugate for irregular verb "する" conjugates to masu form
+      Failure/Error: raise "Unknown form #{type}"
+
+      RuntimeError:
+        Unknown form masu
+      # ./lib/kanjika/verb.rb:15:in `rescue in conjugate'
+      # ./lib/kanjika/verb.rb:11:in `conjugate'
+      # ./spec/kanjika/verb_spec.rb:46:in `block (4 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   private method `puts' called for nil:NilClass
+      #   /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+
+  63) Kanjika::Verb#conjugate for irregular verb "する" conjugates to te form
+      Failure/Error: raise "Unknown form #{type}"
+
+      RuntimeError:
+        Unknown form te
+      # ./lib/kanjika/verb.rb:15:in `rescue in conjugate'
+      # ./lib/kanjika/verb.rb:11:in `conjugate'
+      # ./spec/kanjika/verb_spec.rb:50:in `block (4 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   private method `puts' called for nil:NilClass
+      #   /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+
+  64) Kanjika::Verb#conjugate for irregular verb "する" conjugates to potential form
+      Failure/Error: raise "Unknown form #{type}"
+
+      RuntimeError:
+        Unknown form potential
+      # ./lib/kanjika/verb.rb:15:in `rescue in conjugate'
+      # ./lib/kanjika/verb.rb:11:in `conjugate'
+      # ./spec/kanjika/verb_spec.rb:54:in `block (4 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   private method `puts' called for nil:NilClass
+      #   /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+
+  65) Kanjika::Verb#conjugate for irregular verb "来る" conjugates to masu form
+      Failure/Error: raise "Unknown form #{type}"
+
+      RuntimeError:
+        Unknown form masu
+      # ./lib/kanjika/verb.rb:15:in `rescue in conjugate'
+      # ./lib/kanjika/verb.rb:11:in `conjugate'
+      # ./spec/kanjika/verb_spec.rb:63:in `block (4 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   private method `puts' called for nil:NilClass
+      #   /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+
+  66) Kanjika::Verb#conjugate for irregular verb "来る" conjugates to te form
+      Failure/Error: raise "Unknown form #{type}"
+
+      RuntimeError:
+        Unknown form te
+      # ./lib/kanjika/verb.rb:15:in `rescue in conjugate'
+      # ./lib/kanjika/verb.rb:11:in `conjugate'
+      # ./spec/kanjika/verb_spec.rb:67:in `block (4 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   private method `puts' called for nil:NilClass
+      #   /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+
+  67) Kanjika::Verb#conjugate for irregular verb "来る" conjugates to potential form
+      Failure/Error: raise "Unknown form #{type}"
+
+      RuntimeError:
+        Unknown form potential
+      # ./lib/kanjika/verb.rb:15:in `rescue in conjugate'
+      # ./lib/kanjika/verb.rb:11:in `conjugate'
+      # ./spec/kanjika/verb_spec.rb:71:in `block (4 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   private method `puts' called for nil:NilClass
+      #   /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+
+  68) Kanjika.conjugate conjugates a verb to the specified form
+      Failure/Error: raise "Unknown form #{type}"
+
+      RuntimeError:
+        Unknown form masu
+      # ./lib/kanjika/verb.rb:15:in `rescue in conjugate'
+      # ./lib/kanjika/verb.rb:11:in `conjugate'
+      # ./lib/kanjika.rb:21:in `conjugate'
+      # ./spec/kanjika_spec.rb:11:in `block (3 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   private method `puts' called for nil:NilClass
+      #   /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+
+  69) Kanjika.conjugate handles negative conjugations
+      Failure/Error: raise "Unknown form #{type}"
+
+      RuntimeError:
+        Unknown form masu
+      # ./lib/kanjika/verb.rb:15:in `rescue in conjugate'
+      # ./lib/kanjika/verb.rb:11:in `conjugate'
+      # ./lib/kanjika.rb:21:in `conjugate'
+      # ./spec/kanjika_spec.rb:18:in `block (3 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   private method `puts' called for nil:NilClass
+      #   /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+
+  70) Kanjika.verb #to conjugates the verb to the specified form
+      Failure/Error: raise "Unknown form #{type}"
+
+      RuntimeError:
+        Unknown form masu
+      # ./lib/kanjika/verb.rb:15:in `rescue in conjugate'
+      # ./lib/kanjika/verb.rb:11:in `conjugate'
+      # ./spec/kanjika_spec.rb:34:in `block (4 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   private method `puts' called for nil:NilClass
+      #   /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+
+  71) Kanjika.verb #to handles negative conjugations
+      Failure/Error: raise "Unknown form #{type}"
+
+      RuntimeError:
+        Unknown form masu
+      # ./lib/kanjika/verb.rb:15:in `rescue in conjugate'
+      # ./lib/kanjika/verb.rb:11:in `conjugate'
+      # ./spec/kanjika_spec.rb:41:in `block (4 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   private method `puts' called for nil:NilClass
+      #   /home/jules/.gem/gems/ve-0.0.4/lib/providers/mecab_ipadic.rb:32:in `parse'
+
+Finished in 0.06671 seconds (files took 0.28805 seconds to load)
+75 examples, 71 failures
+
+Failed examples:
+
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:1:1:1] # Kanjika::Conjugator::Base#group for ichidan verbs identifies '食べる' as ichidan
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:1:1:2] # Kanjika::Conjugator::Base#group for ichidan verbs identifies '見る' as ichidan
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:1:1:3] # Kanjika::Conjugator::Base#group for ichidan verbs identifies '起きる' as ichidan
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:1:1:4] # Kanjika::Conjugator::Base#group for ichidan verbs identifies '教える' as ichidan
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:1:2:1] # Kanjika::Conjugator::Base#group for godan verbs identifies '買う' as godan
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:1:2:2] # Kanjika::Conjugator::Base#group for godan verbs identifies '書く' as godan
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:1:2:3] # Kanjika::Conjugator::Base#group for godan verbs identifies '泳ぐ' as godan
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:1:2:4] # Kanjika::Conjugator::Base#group for godan verbs identifies '話す' as godan
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:1:2:5] # Kanjika::Conjugator::Base#group for godan verbs identifies '飲む' as godan
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:1:3:1] # Kanjika::Conjugator::Base#group for suru verbs identifies 'する' as suru
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:1:3:2] # Kanjika::Conjugator::Base#group for suru verbs identifies '勉強する' as suru
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:1:3:3] # Kanjika::Conjugator::Base#group for suru verbs identifies '愛する' as suru
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:1:3:4] # Kanjika::Conjugator::Base#group for suru verbs identifies '接する' as suru
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:1:4:1] # Kanjika::Conjugator::Base#group for irregular verbs identifies '来る' as irregular
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:1:4:2] # Kanjika::Conjugator::Base#group for irregular verbs identifies 'くる' as irregular
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:1:4:3] # Kanjika::Conjugator::Base#group for irregular verbs identifies 'だ' as irregular
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:2:1] # Kanjika::Conjugator::Base#stem finds the stem of '食べる' to be '食べ'
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:2:2] # Kanjika::Conjugator::Base#stem finds the stem of '見る' to be '見'
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:2:3] # Kanjika::Conjugator::Base#stem finds the stem of '書く' to be '書き'
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:2:4] # Kanjika::Conjugator::Base#stem finds the stem of '泳ぐ' to be '泳ぎ'
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:2:5] # Kanjika::Conjugator::Base#stem finds the stem of '飲む' to be '飲み'
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:2:6] # Kanjika::Conjugator::Base#stem finds the stem of '買う' to be '買い'
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:2:7] # Kanjika::Conjugator::Base#stem finds the stem of 'する' to be 'し'
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:2:8] # Kanjika::Conjugator::Base#stem finds the stem of '勉強する' to be '勉強し'
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:2:9] # Kanjika::Conjugator::Base#stem finds the stem of '来る' to be '来'
+rspec ./spec/kanjika/conjugator/base_spec.rb[1:2:10] # Kanjika::Conjugator::Base#stem finds the stem of 'くる' to be 'き'
+rspec ./spec/kanjika/conjugator/base_spec.rb:65 # Kanjika::Conjugator::Base#present for an ichidan verb returns a hash with all present tense forms
+rspec ./spec/kanjika/conjugator/base_spec.rb:79 # Kanjika::Conjugator::Base#present for a godan verb returns a hash with all present tense forms
+rspec ./spec/kanjika/conjugator/masu_spec.rb:12 # Kanjika::Conjugator::Masu#conjugate for godan verb "書く"
+rspec ./spec/kanjika/conjugator/masu_spec.rb:13 # Kanjika::Conjugator::Masu#conjugate for godan verb "書く"
+rspec ./spec/kanjika/conjugator/masu_spec.rb:19 # Kanjika::Conjugator::Masu#conjugate for ichidan verb "食べる"
+rspec ./spec/kanjika/conjugator/masu_spec.rb:20 # Kanjika::Conjugator::Masu#conjugate for ichidan verb "食べる"
+rspec ./spec/kanjika/conjugator/masu_spec.rb:26 # Kanjika::Conjugator::Masu#conjugate for irregular verb "する"
+rspec ./spec/kanjika/conjugator/masu_spec.rb:27 # Kanjika::Conjugator::Masu#conjugate for irregular verb "する"
+rspec ./spec/kanjika/conjugator/masu_spec.rb:33 # Kanjika::Conjugator::Masu#conjugate for irregular verb "来る"
+rspec ./spec/kanjika/conjugator/masu_spec.rb:34 # Kanjika::Conjugator::Masu#conjugate for irregular verb "来る"
+rspec ./spec/kanjika/conjugator/potential_spec.rb:12 # Kanjika::Conjugator::Potential#conjugate for godan verb "書く"
+rspec ./spec/kanjika/conjugator/potential_spec.rb:18 # Kanjika::Conjugator::Potential#conjugate for ichidan verb "食べる"
+rspec ./spec/kanjika/conjugator/potential_spec.rb:24 # Kanjika::Conjugator::Potential#conjugate for irregular verb "する"
+rspec ./spec/kanjika/conjugator/potential_spec.rb:30 # Kanjika::Conjugator::Potential#conjugate for irregular verb "来る"
+rspec ./spec/kanjika/conjugator/te_spec.rb:12 # Kanjika::Conjugator::Te#conjugate for godan verb "書く"
+rspec ./spec/kanjika/conjugator/te_spec.rb:13 # Kanjika::Conjugator::Te#conjugate for godan verb "書く"
+rspec ./spec/kanjika/conjugator/te_spec.rb:20 # Kanjika::Conjugator::Te#conjugate for special godan verb "行く"
+rspec ./spec/kanjika/conjugator/te_spec.rb:26 # Kanjika::Conjugator::Te#conjugate for ichidan verb "食べる"
+rspec ./spec/kanjika/conjugator/te_spec.rb:27 # Kanjika::Conjugator::Te#conjugate for ichidan verb "食べる"
+rspec ./spec/kanjika/conjugator/te_spec.rb:33 # Kanjika::Conjugator::Te#conjugate for irregular verb "する"
+rspec ./spec/kanjika/conjugator/te_spec.rb:34 # Kanjika::Conjugator::Te#conjugate for irregular verb "する"
+rspec ./spec/kanjika/conjugator/te_spec.rb:40 # Kanjika::Conjugator::Te#conjugate for irregular verb "来る"
+rspec ./spec/kanjika/conjugator/te_spec.rb:41 # Kanjika::Conjugator::Te#conjugate for irregular verb "来る"
+rspec ./spec/kanjika/conjugator/validation_spec.rb:9 # Conjugation validation for godan verbs conjugates '飲む' (nomu) correctly
+rspec ./spec/kanjika/conjugator/validation_spec.rb:16 # Conjugation validation for godan verbs conjugates '呼ぶ' (yobu) correctly
+rspec ./spec/kanjika/conjugator/validation_spec.rb:23 # Conjugation validation for godan verbs conjugates '死ぬ' (shinu) correctly
+rspec ./spec/kanjika/conjugator/validation_spec.rb:34 # Conjugation validation for ichidan verbs conjugates '見る' (miru) correctly
+rspec ./spec/kanjika/conjugator/validation_spec.rb:41 # Conjugation validation for ichidan verbs conjugates '起きる' (okiru) correctly
+rspec ./spec/kanjika/conjugator/validation_spec.rb:52 # Conjugation validation for irregular verbs conjugates '勉強する' (benkyou suru) correctly
+rspec ./spec/kanjika/verb_spec.rb:11 # Kanjika::Verb#conjugate for godan verb "書く" conjugates to masu form
+rspec ./spec/kanjika/verb_spec.rb:15 # Kanjika::Verb#conjugate for godan verb "書く" conjugates to te form
+rspec ./spec/kanjika/verb_spec.rb:19 # Kanjika::Verb#conjugate for godan verb "書く" conjugates to potential form
+rspec ./spec/kanjika/verb_spec.rb:28 # Kanjika::Verb#conjugate for ichidan verb "食べる" conjugates to masu form
+rspec ./spec/kanjika/verb_spec.rb:32 # Kanjika::Verb#conjugate for ichidan verb "食べる" conjugates to te form
+rspec ./spec/kanjika/verb_spec.rb:36 # Kanjika::Verb#conjugate for ichidan verb "食べる" conjugates to potential form
+rspec ./spec/kanjika/verb_spec.rb:45 # Kanjika::Verb#conjugate for irregular verb "する" conjugates to masu form
+rspec ./spec/kanjika/verb_spec.rb:49 # Kanjika::Verb#conjugate for irregular verb "する" conjugates to te form
+rspec ./spec/kanjika/verb_spec.rb:53 # Kanjika::Verb#conjugate for irregular verb "する" conjugates to potential form
+rspec ./spec/kanjika/verb_spec.rb:62 # Kanjika::Verb#conjugate for irregular verb "来る" conjugates to masu form
+rspec ./spec/kanjika/verb_spec.rb:66 # Kanjika::Verb#conjugate for irregular verb "来る" conjugates to te form
+rspec ./spec/kanjika/verb_spec.rb:70 # Kanjika::Verb#conjugate for irregular verb "来る" conjugates to potential form
+rspec ./spec/kanjika_spec.rb:9 # Kanjika.conjugate conjugates a verb to the specified form
+rspec ./spec/kanjika_spec.rb:16 # Kanjika.conjugate handles negative conjugations
+rspec ./spec/kanjika_spec.rb:32 # Kanjika.verb #to conjugates the verb to the specified form
+rspec ./spec/kanjika_spec.rb:39 # Kanjika.verb #to handles negative conjugations
+
+Coverage report generated for RSpec to /app/coverage.
+Line Coverage: 85.91% (250 / 291)
+Stopped processing SimpleCov as a previous error not related to SimpleCov has been detected
