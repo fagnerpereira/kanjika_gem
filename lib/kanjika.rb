@@ -21,7 +21,5 @@ module Kanjika
 
   def self.conjugate(verb, form, negative: false)
     Verb.new(verb).conjugate(form, negative: negative)
-  rescue NameError
-    raise "Unknown form #{form}"
   end
 end

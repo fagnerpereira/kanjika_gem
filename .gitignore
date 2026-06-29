@@ -7,3 +7,4 @@ pkg
 .bundle/
 .genkit/traces_idx/genkit.metadata
 .idea/
+vendor/bundle/
