@@ -6,8 +6,6 @@ require "mojinizer"
 require_relative "kanjika/version"
 require_relative "kanjika/verb"
 require_relative "kanjika/conjugator/base"
-require_relative "kanjika/conjugator/concerns/verb_type_detector"
-require_relative "kanjika/conjugator/concerns/token_conjugator"
 require_relative "kanjika/conjugator/masu"
 require_relative "kanjika/conjugator/te"
 require_relative "kanjika/conjugator/potential"
@@ -21,7 +19,5 @@ module Kanjika
 
   def self.conjugate(verb, form, negative: false)
     Verb.new(verb).conjugate(form, negative: negative)
-  rescue NameError
-    raise "Unknown form #{form}"
   end
 end
