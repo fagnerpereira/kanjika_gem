@@ -97,6 +97,8 @@ module Kanjika
       end
 
       def ending_in_e_or_i?
+        return false if verb.to_s.length < 2
+
         E_ENDINGS.include?(verb[-2]) || I_ENDINGS.include?(verb[-2])
       end
 
