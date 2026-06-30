@@ -24,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Method signature mismatch causing test failures
 - Missing constants in Masu and Te conjugators
-- Conjugate method signatures in causative, passive, potential, and volitional conjugators now accept negative parameter
+- Conjugate method signature in potential conjugator now accepts negative parameter
 - Examples/conjugate.rb now uses require_relative for local development
 
 ### Improved

@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email = ["fagnerfpr@gmail.com"]
 
   spec.summary = "Useful tools to work with Japanese language"
-  spec.description = "A comprehensive Ruby gem for Japanese verb conjugation supporting masu, te, ta, passive, causative, potential, and volitional forms across all verb types (godan, ichidan, and irregular)"
+  spec.description = "A comprehensive Ruby gem for Japanese verb conjugation supporting masu, te, and potential forms across all verb types (godan, ichidan, and irregular)"
   spec.homepage = "https://github.com/fagnerpereira/kanjika_gem"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.0.0"
@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.metadata["changelog_uri"] = "https://github.com/fagnerpereira/kanjika_gem/blob/main/CHANGELOG.md"
   spec.metadata["documentation_uri"] = "https://github.com/fagnerpereira/kanjika_gem#readme"
 
-  spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+  spec.files = Dir["{lib,examples}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   spec.require_paths = ["lib"]
 
   # spec.add_dependency "railties"
