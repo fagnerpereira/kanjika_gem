@@ -4,6 +4,24 @@ A practical Ruby gem for Japanese verb conjugation. Kanjika provides an easy-to-
 
 ## Installation
 
+### System Requirements
+
+Kanjika requires **MeCab** (a Japanese morphological analyzer) to be installed on your system.
+
+**Ubuntu/Debian:**
+```bash
+sudo apt-get install mecab libmecab-dev mecab-ipadic-utf8
+```
+
+**macOS:**
+```bash
+brew install mecab mecab-ipadic
+```
+
+**Other systems:** Please refer to the [MeCab installation guide](https://taku910.github.io/mecab/).
+
+### Gem Installation
+
 Add this line to your application's Gemfile:
 
 ```ruby
