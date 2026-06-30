@@ -69,7 +69,7 @@ RSpec.describe Kanjika::Conjugator::Base do
     end
   end
 
-  describe "#group" do
+  describe "#group", :needs_mecab do
     verb_groups = {
       # Ichidan verbs (一段動詞 - ichidan dōshi)
       ichidan: %w[食べる 見る 起きる 教える],
@@ -85,7 +85,6 @@ RSpec.describe Kanjika::Conjugator::Base do
       context "for #{group} verbs" do
         verbs.each do |verb_str|
           it "identifies '#{verb_str}' as #{group}" do
-            pending "MeCab is not installed"
             expect(described_class.new(verb_str).group).to eq(group)
           end
         end
@@ -93,7 +92,7 @@ RSpec.describe Kanjika::Conjugator::Base do
     end
   end
 
-  describe "#stem" do
+  describe "#stem", :needs_mecab do
     stem_cases = {
       # Ichidan: remove る
       "食べる" => "食べ",
@@ -113,13 +112,12 @@ RSpec.describe Kanjika::Conjugator::Base do
 
     stem_cases.each do |verb_str, stem|
       it "finds the stem of '#{verb_str}' to be '#{stem}'" do
-        pending "MeCab is not installed"
         expect(described_class.new(verb_str).stem).to eq(stem)
       end
     end
   end
 
-  describe "#present" do
+  describe "#present", :needs_mecab do
     context "for an ichidan verb" do
       let(:verb) { "食べる" }
       let(:expected) do
@@ -130,7 +128,6 @@ RSpec.describe Kanjika::Conjugator::Base do
       end
 
       it "returns a hash with all present tense forms" do
-        pending "MeCab is not installed"
         expect(conjugator.present).to eq(expected)
       end
     end
@@ -145,7 +142,6 @@ RSpec.describe Kanjika::Conjugator::Base do
       end
 
       it "returns a hash with all present tense forms" do
-        pending "MeCab is not installed"
         expect(conjugator.present).to eq(expected)
       end
     end

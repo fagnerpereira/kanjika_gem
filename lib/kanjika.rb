@@ -2,6 +2,7 @@
 
 require "active_support/core_ext/string/inflections"
 require "ve"
+require_relative "kanjika/ve_patch"
 require "mojinizer"
 require_relative "kanjika/version"
 require_relative "kanjika/verb"

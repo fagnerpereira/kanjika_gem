@@ -15,17 +15,15 @@ def demonstrate_verb(verb_str, description)
   forms = [:masu, :te, :potential]
 
   forms.each do |form|
-    begin
-      positive = verb.to(form)
-      negative = verb.to(form, negative: true)
+    positive = verb.to(form)
+    negative = verb.to(form, negative: true)
 
-      puts "\n#{form.to_s.upcase} FORM:"
-      puts "  Positive: #{positive}"
-      puts "  Negative: #{negative}"
-    rescue => e
-      puts "\n#{form.to_s.upcase} FORM:"
-      puts "  Error: #{e.message}"
-    end
+    puts "\n#{form.to_s.upcase} FORM:"
+    puts "  Positive: #{positive}"
+    puts "  Negative: #{negative}"
+  rescue => e
+    puts "\n#{form.to_s.upcase} FORM:"
+    puts "  Error: #{e.message}"
   end
 end
 

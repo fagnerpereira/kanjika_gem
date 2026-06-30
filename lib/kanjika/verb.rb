@@ -9,7 +9,7 @@ module Kanjika
     end
 
     def conjugate(type, negative: false)
-      conjugator_class = conjugators[type.to_sym]
+      conjugator_class = conjugators[type&.to_sym]
       raise "Unknown form #{type}" unless conjugator_class
 
       conjugator_class.new(verb).conjugate(negative: negative)
