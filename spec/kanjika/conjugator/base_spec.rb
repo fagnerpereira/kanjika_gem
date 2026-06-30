@@ -27,6 +27,24 @@ RSpec.describe Kanjika::Conjugator::Base do
     end
   end
 
+  describe "#process" do
+    context "when verb is empty" do
+      let(:verb) { "" }
+
+      it "returns an empty array" do
+        expect(conjugator.process).to eq([])
+      end
+    end
+
+    context "when verb is nil" do
+      let(:verb) { nil }
+
+      it "returns an empty array" do
+        expect(conjugator.process).to eq([])
+      end
+    end
+  end
+
   describe "#stem" do
     stem_cases = {
       # Ichidan: remove る
@@ -48,6 +66,22 @@ RSpec.describe Kanjika::Conjugator::Base do
     stem_cases.each do |verb_str, stem|
       it "finds the stem of '#{verb_str}' to be '#{stem}'" do
         expect(described_class.new(verb_str).stem).to eq(stem)
+      end
+    end
+
+    context "when verb is empty" do
+      let(:verb) { "" }
+
+      it "returns nil" do
+        expect(conjugator.stem).to be_nil
+      end
+    end
+
+    context "when verb is nil" do
+      let(:verb) { nil }
+
+      it "returns nil" do
+        expect(conjugator.stem).to be_nil
       end
     end
   end
