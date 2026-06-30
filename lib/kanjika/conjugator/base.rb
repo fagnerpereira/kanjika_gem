@@ -92,14 +92,6 @@ module Kanjika
         inflection_types.include?(SURU) || inflection_types.include?(NOUN_VERB)
       end
 
-      def irregular?
-        inflection_types.include?(KURU)
-      end
-
-      def ending_in_e_or_i?
-        E_ENDINGS.include?(verb[-2]) || I_ENDINGS.include?(verb[-2])
-      end
-
       def inflection_types
         process.flat_map do |word|
           word.tokens.map { |token| token[:inflection_type] }
