@@ -21,13 +21,9 @@ module Kanjika
         return "行って" if verb == "行く" || verb == "いく"
 
         case group
-        when :ichidan
-          "#{stem}て" # te
         when :godan
           verb.chop + GODAN_MAPPING.fetch(verb[-1])
-        when :suru
-          "#{stem}て" # te
-        when :irregular
+        else
           "#{stem}て" # te
         end
       end
