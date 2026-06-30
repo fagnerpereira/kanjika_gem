@@ -3,8 +3,73 @@ require "spec_helper"
 
 RSpec.describe Kanjika::Conjugator::Base do
   subject(:conjugator) { described_class.new(verb) }
+  let(:verb) { "test" }
 
-  describe "#group" do
+  describe "#inflection_types" do
+    let(:word) { instance_double(Ve::Word) }
+
+    before do
+      allow(Ve).to receive_message_chain(:in, :words).with(verb).and_return([word])
+    end
+
+    it "returns the inflection types from tokens" do
+      allow(word).to receive(:tokens).and_return([
+        {inflection_type: "一段"}
+      ])
+
+      expect(conjugator.inflection_types).to eq(["一段"])
+    end
+
+    it "splits multiple inflection types separated by '・'" do
+      allow(word).to receive(:tokens).and_return([
+        {inflection_type: "五段・カ行"}
+      ])
+
+      expect(conjugator.inflection_types).to eq(["五段", "カ行"])
+    end
+
+    it "returns unique inflection types" do
+      allow(word).to receive(:tokens).and_return([
+        {inflection_type: "五段"},
+        {inflection_type: "五段"}
+      ])
+
+      expect(conjugator.inflection_types).to eq(["五段"])
+    end
+
+    it "handles multiple words and tokens" do
+      word2 = instance_double(Ve::Word)
+      allow(Ve).to receive_message_chain(:in, :words).with(verb).and_return([word, word2])
+
+      allow(word).to receive(:tokens).and_return([
+        {inflection_type: "一段"}
+      ])
+      allow(word2).to receive(:tokens).and_return([
+        {inflection_type: "助動詞"}
+      ])
+
+      expect(conjugator.inflection_types).to eq(["一段", "助動詞"])
+    end
+
+    it "compacts nil values" do
+      allow(word).to receive(:tokens).and_return([
+        {inflection_type: "一段"},
+        {inflection_type: nil}
+      ])
+
+      expect(conjugator.inflection_types).to eq(["一段"])
+    end
+
+    context "when verb is empty" do
+      let(:verb) { "" }
+
+      it "returns an empty array" do
+        expect(conjugator.inflection_types).to eq([])
+      end
+    end
+  end
+
+  describe "#group", :needs_mecab do
     verb_groups = {
       # Ichidan verbs (一段動詞 - ichidan dōshi)
       ichidan: %w[食べる 見る 起きる 教える],
@@ -27,7 +92,7 @@ RSpec.describe Kanjika::Conjugator::Base do
     end
   end
 
-  describe "#stem" do
+  describe "#stem", :needs_mecab do
     stem_cases = {
       # Ichidan: remove る
       "食べる" => "食べ",
@@ -52,7 +117,7 @@ RSpec.describe Kanjika::Conjugator::Base do
     end
   end
 
-  describe "#present" do
+  describe "#present", :needs_mecab do
     context "for an ichidan verb" do
       let(:verb) { "食べる" }
       let(:expected) do

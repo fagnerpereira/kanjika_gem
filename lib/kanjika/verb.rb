@@ -9,12 +9,22 @@ module Kanjika
     end
 
     def conjugate(type, negative: false)
-      conjugator_class = "Kanjika::Conjugator::#{type.to_s.camelize}"
-      conjugator_class.constantize.new(verb).conjugate(negative: negative)
-    rescue NameError
-      raise "Unknown form #{type}"
+      conjugator_class = conjugators[type&.to_sym]
+      raise "Unknown form #{type}" unless conjugator_class
+
+      conjugator_class.new(verb).conjugate(negative: negative)
     end
 
     alias_method :to, :conjugate
+
+    private
+
+    def conjugators
+      {
+        masu: Kanjika::Conjugator::Masu,
+        te: Kanjika::Conjugator::Te,
+        potential: Kanjika::Conjugator::Potential
+      }
+    end
   end
 end

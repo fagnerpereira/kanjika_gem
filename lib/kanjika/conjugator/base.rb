@@ -56,7 +56,7 @@ module Kanjika
       def present
         {
           positive: {
-            plain: process.first.lemma,
+            plain: verb,
             polite: "#{stem}ます"
           },
           negative: {
@@ -81,19 +81,19 @@ module Kanjika
       end
 
       def ichidan?
-        inflection_types.include?(ICHIDAN)
+        inflection_types.any? { |t| t.include?(ICHIDAN) }
       end
 
       def godan?
-        inflection_types.include?(GODAN)
+        inflection_types.any? { |t| t.include?(GODAN) }
       end
 
       def suru?
-        inflection_types.include?(SURU) || inflection_types.include?(NOUN_VERB)
+        inflection_types.any? { |t| t.include?(SURU) || t.include?("サ行変") || t.include?(NOUN_VERB) }
       end
 
       def irregular?
-        inflection_types.include?(KURU)
+        inflection_types.any? { |t| t.include?(KURU) || t.include?("カ行変") }
       end
 
       def ending_in_e_or_i?

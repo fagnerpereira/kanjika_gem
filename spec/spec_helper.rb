@@ -5,7 +5,21 @@ SimpleCov.start
 
 require "kanjika"
 
+module SpecHelpers
+  def mecab_installed?
+    @mecab_installed ||= system("mecab --version > /dev/null 2>&1")
+  end
+end
+
 RSpec.configure do |config|
+  config.include SpecHelpers
+
+  config.before(:each) do |example|
+    if example.metadata[:needs_mecab] && !mecab_installed?
+      pending "MeCab is not installed"
+    end
+  end
+
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"
 
