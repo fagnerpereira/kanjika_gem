@@ -73,6 +73,10 @@ RSpec.describe Kanjika::Conjugator::Base do
     context "when verb is empty" do
       let(:verb) { "" }
 
+      before do
+        expect(Ve).not_to receive(:in)
+      end
+
       it "returns an empty array" do
         expect(conjugator.process).to eq([])
       end
@@ -80,6 +84,10 @@ RSpec.describe Kanjika::Conjugator::Base do
 
     context "when verb is nil" do
       let(:verb) { nil }
+
+      before do
+        expect(Ve).not_to receive(:in)
+      end
 
       it "returns an empty array" do
         expect(conjugator.process).to eq([])
@@ -137,7 +145,8 @@ RSpec.describe Kanjika::Conjugator::Base do
     context "when verb is empty" do
       let(:verb) { "" }
 
-      it "returns nil" do
+      it "returns nil without calling Ve" do
+        expect(Ve).not_to receive(:in)
         expect(conjugator.stem).to be_nil
       end
     end
@@ -145,7 +154,8 @@ RSpec.describe Kanjika::Conjugator::Base do
     context "when verb is nil" do
       let(:verb) { nil }
 
-      it "returns nil" do
+      it "returns nil without calling Ve" do
+        expect(Ve).not_to receive(:in)
         expect(conjugator.stem).to be_nil
       end
     end
