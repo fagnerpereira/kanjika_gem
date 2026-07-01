@@ -45,9 +45,7 @@ Kanjika.conjugate(verb, :masu, negative: false)
 - `Te` — most complex; uses `GODAN_MAPPING` hash and has a hard-coded special case for 行く.
 - `Potential` — character-maps godan endings U→E then appends "る".
 
-**Concerns** (defined but not yet mixed into Masu/Te/Potential — intended for future forms):
-- `Concerns::VerbTypeDetector` — per-token type helpers (`ichidan?`, `godan?`, `irregular?`).
-- `Concerns::TokenConjugator` — Template Method pattern; requires subclasses to implement `conjugate_ichidan`, `conjugate_godan`, `conjugate_irregular`, `conjugate_others`.
+`Concerns::VerbTypeDetector` and `Concerns::TokenConjugator` were removed as dead code in `0753c70` (see `docs/adr/0003-remove-dead-concern-modules.md`) — they were defined but never mixed into any conjugator. If a Template Method abstraction across conjugators is needed again, reintroduce it from git history rather than reviving the old modules as-is.
 
 **Errors** (`lib/kanjika/errors.rb`) — `Kanjika::Error` (base) and `Kanjika::InvalidVerbError`.
 
