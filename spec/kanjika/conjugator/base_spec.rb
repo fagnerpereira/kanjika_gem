@@ -141,7 +141,15 @@ RSpec.describe Kanjika::Conjugator::Base do
         expect(described_class.new(verb_str).stem).to eq(stem)
       end
     end
+  end
 
+  # Not tagged :needs_mecab: these assert the nil/empty guard clause returns
+  # early without ever reaching Ve, so they must run (and pass) even when
+  # MeCab isn't installed. Nesting them under the tagged "#stem" block above
+  # made them inherit :needs_mecab, which made them pending instead of
+  # running in MeCab-less environments and CI report them as unexpectedly
+  # passing ("FIXED") once run.
+  describe "#stem" do
     context "when verb is empty" do
       let(:verb) { "" }
 
