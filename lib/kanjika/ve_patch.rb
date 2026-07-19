@@ -13,7 +13,7 @@ class Ve
         # We rescue stdin writing to handle if the process is closed or broken
         begin
           @stdin.puts "#{text} #{BIT_STOP}"
-        rescue
+        rescue IOError, SystemCallError
           return Ve::Parse::MecabIpadic.new(text, [])
         end
 
@@ -25,7 +25,7 @@ class Ve
             output << line
             break if line.strip == "EOS"
           end
-        rescue
+        rescue IOError
           # If reading fails, just proceed with what we have
         end
 
