@@ -7,6 +7,6 @@ gem "rake", "~> 13.4"
 
 gem "rspec", "~> 3.13"
 
-gem "standard", "~> 1.55"
+gem "standard", "~> 1.56"
 
 gem "simplecov", require: false
