@@ -69,6 +69,32 @@ RSpec.describe Kanjika::Conjugator::Base do
     end
   end
 
+  describe "#process" do
+    context "when verb is empty" do
+      let(:verb) { "" }
+
+      before do
+        expect(Ve).not_to receive(:in)
+      end
+
+      it "returns an empty array" do
+        expect(conjugator.process).to eq([])
+      end
+    end
+
+    context "when verb is nil" do
+      let(:verb) { nil }
+
+      before do
+        expect(Ve).not_to receive(:in)
+      end
+
+      it "returns an empty array" do
+        expect(conjugator.process).to eq([])
+      end
+    end
+  end
+
   describe "#group", :needs_mecab do
     verb_groups = {
       # Ichidan verbs (一段動詞 - ichidan dōshi)
@@ -113,6 +139,32 @@ RSpec.describe Kanjika::Conjugator::Base do
     stem_cases.each do |verb_str, stem|
       it "finds the stem of '#{verb_str}' to be '#{stem}'" do
         expect(described_class.new(verb_str).stem).to eq(stem)
+      end
+    end
+  end
+
+  # Not tagged :needs_mecab: these assert the nil/empty guard clause returns
+  # early without ever reaching Ve, so they must run (and pass) even when
+  # MeCab isn't installed. Nesting them under the tagged "#stem" block above
+  # made them inherit :needs_mecab, which made them pending instead of
+  # running in MeCab-less environments and CI report them as unexpectedly
+  # passing ("FIXED") once run.
+  describe "#stem" do
+    context "when verb is empty" do
+      let(:verb) { "" }
+
+      it "returns nil without calling Ve" do
+        expect(Ve).not_to receive(:in)
+        expect(conjugator.stem).to be_nil
+      end
+    end
+
+    context "when verb is nil" do
+      let(:verb) { nil }
+
+      it "returns nil without calling Ve" do
+        expect(Ve).not_to receive(:in)
+        expect(conjugator.stem).to be_nil
       end
     end
   end
