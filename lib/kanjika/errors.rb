@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Kanjika
   class Error < StandardError; end
 

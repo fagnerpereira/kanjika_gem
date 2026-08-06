@@ -2,6 +2,19 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Japanese Text Convention
+
+Whenever kanji appears in prose documentation (`README.md`, `ROADMAP.md`, this
+file, etc.) or in a code **comment**, write the furigana — a hiragana reading —
+in parentheses immediately after it, e.g. `食べる(たべる)`. This is for the
+maintainer's benefit while learning kanji, per the discussion on PR #37.
+
+This does **not** apply to kanji inside string literals that are part of
+executable code or test assertions (e.g. `Kanjika.conjugate("食べる", :masu)`,
+`GODAN = "五段"`, spec `expect(...)` values) — annotating those would change
+runtime behavior or corrupt test fixtures. In that case, add the furigana in a
+nearby comment instead of altering the string itself.
+
 ## System Requirement
 
 MeCab must be installed on the host — all morphological analysis routes through the `ve` gem, which calls MeCab under the hood. Tests and any IRB session fail without it.
@@ -27,13 +40,13 @@ CI matrix runs Ruby 3.1, 3.2, and 3.3. Development pin is 3.3.6 (managed via `mi
 
 ## Architecture
 
-```
+```text
 Kanjika.conjugate(verb, :masu, negative: false)
   └─ Verb#conjugate(:masu)
-       └─ "Kanjika::Conjugator::Masu".constantize.new(verb).conjugate(negative:)
+       └─ conjugators[:masu] → Kanjika::Conjugator::Masu.new(verb).conjugate(negative:)
 ```
 
-**`Kanjika::Verb`** (`lib/kanjika/verb.rb`) — thin wrapper. Resolves the conjugator class dynamically via `ActiveSupport#camelize` + `constantize`. Adding a new form means creating a new `Conjugator::<Form>` subclass; no dispatch table to update.
+**`Kanjika::Verb`** (`lib/kanjika/verb.rb`) — thin wrapper. Resolves the conjugator class through an explicit allow-list Hash (`Verb#conjugators`), **not** `constantize` — dynamic constant lookup from user input was removed as an RCE vector in `0a18156` (see `docs/adr/0002-replace-constantize-with-explicit-whitelist.md`; treat as binding). Unknown forms raise `RuntimeError` with `Unknown form <type>`.
 
 **`Kanjika::Conjugator::Base`** (`lib/kanjika/conjugator/base.rb`) — all conjugators inherit from here. Key responsibilities:
 - Calls `Ve.in(:ja).words(verb)` to tokenize and identify inflection types.
@@ -42,7 +55,7 @@ Kanjika.conjugate(verb, :masu, negative: false)
 
 **Conjugator subclasses** — each implements `conjugate(negative:)`:
 - `Masu` — straightforward `stem + "ます"/"ません"`.
-- `Te` — most complex; uses `GODAN_MAPPING` hash and has a hard-coded special case for 行く.
+- `Te` — most complex; uses `GODAN_MAPPING` hash and has a hard-coded special case for 行く(いく).
 - `Potential` — character-maps godan endings U→E then appends "る".
 
 `Concerns::VerbTypeDetector` and `Concerns::TokenConjugator` were removed as dead code in `0753c70` (see `docs/adr/0003-remove-dead-concern-modules.md`) — they were defined but never mixed into any conjugator. If a Template Method abstraction across conjugators is needed again, reintroduce it from git history rather than reviving the old modules as-is.
@@ -54,6 +67,5 @@ Kanjika.conjugate(verb, :masu, negative: false)
 1. Create `lib/kanjika/conjugator/<form>.rb` with `class Kanjika::Conjugator::<Form> < Base`.
 2. Implement `conjugate(negative: false)` using `group`, `stem`, and the kana constants from `Base`.
 3. `require_relative` it in `lib/kanjika.rb`.
-4. Mirror the spec structure under `spec/kanjika/conjugator/`.
-
-No other files need to change — `Verb#conjugate` resolves the class by name at runtime.
+4. Register the form in the `Verb#conjugators` allow-list Hash (`lib/kanjika/verb.rb`) — required since ADR 0002; do not reintroduce `constantize`.
+5. Mirror the spec structure under `spec/kanjika/conjugator/`.
