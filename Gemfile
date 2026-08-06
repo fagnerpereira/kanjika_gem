@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in lazy_rails.gemspec
+# Specify your gem's dependencies in kanjika.gemspec
 gemspec
 
 gem "rake", "~> 13.4"

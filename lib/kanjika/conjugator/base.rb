@@ -29,7 +29,7 @@ module Kanjika
         # Kuru (くる) -> Ki (き)
         "来る" => "来", # kuru -> ki
         "くる" => "き"
-      }
+      }.freeze
 
       attr_reader :verb
 

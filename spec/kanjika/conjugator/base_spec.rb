@@ -1,4 +1,5 @@
-# spec/kanjika/conjugator/base_spec.rb
+# frozen_string_literal: true
+
 require "spec_helper"
 
 RSpec.describe Kanjika::Conjugator::Base do
