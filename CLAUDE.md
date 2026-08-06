@@ -2,6 +2,19 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Japanese Text Convention
+
+Whenever kanji appears in prose documentation (`README.md`, `ROADMAP.md`, this
+file, etc.) or in a code **comment**, write the furigana — a hiragana reading —
+in parentheses immediately after it, e.g. `食べる(たべる)`. This is for the
+maintainer's benefit while learning kanji, per the discussion on PR #37.
+
+This does **not** apply to kanji inside string literals that are part of
+executable code or test assertions (e.g. `Kanjika.conjugate("食べる", :masu)`,
+`GODAN = "五段"`, spec `expect(...)` values) — annotating those would change
+runtime behavior or corrupt test fixtures. In that case, add the furigana in a
+nearby comment instead of altering the string itself.
+
 ## System Requirement
 
 MeCab must be installed on the host — all morphological analysis routes through the `ve` gem, which calls MeCab under the hood. Tests and any IRB session fail without it.
@@ -42,7 +55,7 @@ Kanjika.conjugate(verb, :masu, negative: false)
 
 **Conjugator subclasses** — each implements `conjugate(negative:)`:
 - `Masu` — straightforward `stem + "ます"/"ません"`.
-- `Te` — most complex; uses `GODAN_MAPPING` hash and has a hard-coded special case for 行く.
+- `Te` — most complex; uses `GODAN_MAPPING` hash and has a hard-coded special case for 行く(いく).
 - `Potential` — character-maps godan endings U→E then appends "る".
 
 `Concerns::VerbTypeDetector` and `Concerns::TokenConjugator` were removed as dead code in `0753c70` (see `docs/adr/0003-remove-dead-concern-modules.md`) — they were defined but never mixed into any conjugator. If a Template Method abstraction across conjugators is needed again, reintroduce it from git history rather than reviving the old modules as-is.
