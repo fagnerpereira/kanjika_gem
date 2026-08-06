@@ -220,6 +220,8 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/fagner
 
 ## Roadmap
 
+See [ROADMAP.md](ROADMAP.md) for the full list of proposed features awaiting discussion.
+
 Here are some of the features we're planning to add to Kanjika:
 
 - **More Conjugation Forms:** We'll be adding support for more conjugation forms, such as:
