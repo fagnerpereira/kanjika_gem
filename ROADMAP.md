@@ -51,6 +51,16 @@ design is non-obvious, an ADR in `docs/adr/`) before code is written.
   Both change observable behavior, so this needs an explicit maintainer
   decision and a minor-version bump.
 
+- **Furigana / kana reading alongside kanji output** — requested by a
+  maintainer still building kanji fluency: every conjugated form should
+  optionally expose its kana reading (e.g. 食べた → たべた), not just the
+  kanji string. `Ve.in(:ja).words(verb)` already surfaces a `:reading`
+  attribute (katakana, sourced from MeCab's IPADIC dictionary) via the `ve`
+  gem, so the raw pronunciation data is available — open design questions
+  are the public API shape (e.g. a `furigana:` option on `conjugate` vs. a
+  separate `Kanjika.reading(verb)` method) and converting the katakana
+  reading to hiragana for furigana-style display.
+
 ## Explicitly out of scope until decided
 
 New forms must follow the existing architecture: one `Conjugator::<Form>`
