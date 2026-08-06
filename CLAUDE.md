@@ -27,13 +27,13 @@ CI matrix runs Ruby 3.1, 3.2, and 3.3. Development pin is 3.3.6 (managed via `mi
 
 ## Architecture
 
-```
+```text
 Kanjika.conjugate(verb, :masu, negative: false)
   └─ Verb#conjugate(:masu)
-       └─ "Kanjika::Conjugator::Masu".constantize.new(verb).conjugate(negative:)
+       └─ conjugators[:masu] → Kanjika::Conjugator::Masu.new(verb).conjugate(negative:)
 ```
 
-**`Kanjika::Verb`** (`lib/kanjika/verb.rb`) — thin wrapper. Resolves the conjugator class dynamically via `ActiveSupport#camelize` + `constantize`. Adding a new form means creating a new `Conjugator::<Form>` subclass; no dispatch table to update.
+**`Kanjika::Verb`** (`lib/kanjika/verb.rb`) — thin wrapper. Resolves the conjugator class through an explicit allow-list Hash (`Verb#conjugators`), **not** `constantize` — dynamic constant lookup from user input was removed as an RCE vector in `0a18156` (see `docs/adr/0002-replace-constantize-with-explicit-whitelist.md`; treat as binding). Unknown forms raise `RuntimeError` with `Unknown form <type>`.
 
 **`Kanjika::Conjugator::Base`** (`lib/kanjika/conjugator/base.rb`) — all conjugators inherit from here. Key responsibilities:
 - Calls `Ve.in(:ja).words(verb)` to tokenize and identify inflection types.
@@ -54,6 +54,5 @@ Kanjika.conjugate(verb, :masu, negative: false)
 1. Create `lib/kanjika/conjugator/<form>.rb` with `class Kanjika::Conjugator::<Form> < Base`.
 2. Implement `conjugate(negative: false)` using `group`, `stem`, and the kana constants from `Base`.
 3. `require_relative` it in `lib/kanjika.rb`.
-4. Mirror the spec structure under `spec/kanjika/conjugator/`.
-
-No other files need to change — `Verb#conjugate` resolves the class by name at runtime.
+4. Register the form in the `Verb#conjugators` allow-list Hash (`lib/kanjika/verb.rb`) — required since ADR 0002; do not reintroduce `constantize`.
+5. Mirror the spec structure under `spec/kanjika/conjugator/`.
